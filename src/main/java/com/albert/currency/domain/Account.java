@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,5 +36,12 @@ public class Account {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     User user;
+
+    @OneToMany(
+            targetEntity = AccountRecord.class,
+            mappedBy = "account",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    List<AccountRecord> accountRecords;
 
 }

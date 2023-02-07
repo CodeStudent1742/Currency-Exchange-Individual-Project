@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @Table(name = "ACCOUNTS_STATUS_HISTORY")
-public class AccountStatusCopy {
+public class AccountRecord {
 
     @Id
     @GeneratedValue
@@ -36,5 +36,11 @@ public class AccountStatusCopy {
     @JoinColumn(name = "USER_ID")
     User user;
 
+    @OneToOne(mappedBy = "accountRecord")
+    ExchangeOrder exchangeOrder;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ACCOUNT_ID")
+    Account account;
 
 }

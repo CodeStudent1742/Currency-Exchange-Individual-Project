@@ -29,11 +29,11 @@ public class User {
     private Account account;
 
     @OneToMany(
-            targetEntity = AccountStatusCopy.class,
+            targetEntity = AccountRecord.class,
             mappedBy = "user",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
-    private List<AccountStatusCopy> accountStatusCopies = new ArrayList<>();
+    private List<AccountRecord> accountStatusCopies = new ArrayList<>();
 
     @OneToMany(
             targetEntity = ExchangeOrder.class,
@@ -46,4 +46,9 @@ public class User {
     @Column(name = "USER_NAME")
     private String userName;
 
+
+    public User(String userName){
+
+        this.userName = userName;
+    }
 }

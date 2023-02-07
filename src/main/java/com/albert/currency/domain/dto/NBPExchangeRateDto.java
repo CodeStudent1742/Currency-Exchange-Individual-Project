@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class NBPExchangeDto {
+public class NBPExchangeRateDto {
 
     private BigDecimal EUR_PLN;
     private BigDecimal USD_PLN;

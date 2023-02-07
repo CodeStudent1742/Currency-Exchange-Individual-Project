@@ -19,8 +19,8 @@ public class ExchangeOrder {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "ORDER_ID")
-    private Long orderId;
+    @Column(name = "EXCHANGE_ORDER_ID")
+    private Long exchangeOrderId;
 
     @Column(name="EXCHANGE_DATE")
     private LocalDate exchangeDate;
@@ -29,7 +29,7 @@ public class ExchangeOrder {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "COPY_ID")
-    private AccountStatusCopy accountStatusCopy;
+    private AccountRecord accountRecord;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "USER_ID")
@@ -39,7 +39,7 @@ public class ExchangeOrder {
             targetEntity = Transaction.class,
             mappedBy = "exchangeOrder",
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+            fetch = FetchType.LAZY)
     private List<Transaction> orderTransactions = new ArrayList<>();
 
 }

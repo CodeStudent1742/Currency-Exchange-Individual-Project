@@ -23,7 +23,6 @@ public class ExchangeOrderController {
 
     private final ExchangeOrderMapper exchangeOrderMapper;
     private final ExchangeOrderService exchangeOrderService;
-    private final ExchangeOrderRepository exchangeOrderRepository;
 
     @GetMapping
     public ResponseEntity<List<ExchangeOrderDto>> getExchangeOrders() {
@@ -47,12 +46,7 @@ public class ExchangeOrderController {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ExchangeOrderDto> updateExchangeOrder(@RequestBody ExchangeOrderDto exchangeOrderDto) throws ExchangeOrderNotFoundException, AccountRecordNotFoundException, UserNotFoundException {
-        ExchangeOrder exchangeOrder = exchangeOrderService.getExchangeOrderById(exchangeOrderDto.getOrderId());
-//        exchangeOrder.setExchangeDate(exchangeOrderDto.getExchangeDate());
-//        exchangeOrder.setExchangeStatus(exchangeOrderDto.getExchangeStatus());
-//        exchangeOrder.setAccountRecord(accountRecordRepository.findById(exchangeOrderDto.getAccountRecordId()).orElseThrow(AccountRecordNotFoundException::new));
-//        exchangeOrder.setUser(userRepository.findById(exchangeOrderDto.getUserId()).orElseThrow(UserNotFoundException::new));
-//        exchangeOrder.setOrderTransactions(transactionRepository.findAllById(exchangeOrderDto.getOrderTransactionIds()));
+        ExchangeOrder exchangeOrder = exchangeOrderMapper.mapToExchangeOrder(exchangeOrderDto);
         exchangeOrderService.save(exchangeOrder);
         return ResponseEntity.ok(exchangeOrderMapper.mapToExchangeOrderDto(exchangeOrder));
     }

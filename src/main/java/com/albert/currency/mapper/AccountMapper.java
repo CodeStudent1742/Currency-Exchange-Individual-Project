@@ -6,15 +6,17 @@ import com.albert.currency.domain.AccountRecord;
 import com.albert.currency.domain.dto.AccountDto;
 import com.albert.currency.domain.dto.NewAccountDto;
 import com.albert.currency.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class AccountMapper {
 
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public AccountDto mapToAccountDto(Account account) {
         return new AccountDto(

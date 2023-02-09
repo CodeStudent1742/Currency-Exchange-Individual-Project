@@ -19,9 +19,6 @@ import java.util.List;
 public class ExchangeOrderService {
 
     private final ExchangeOrderRepository exchangeOrderRepository;
-    private final AccountRecordRepository accountRecordRepository;
-    private final UserRepository userRepository;
-    private final TransactionRepository transactionRepository;
 
     public ExchangeOrder getExchangeOrderById(Long exchangeOrderId) throws ExchangeOrderNotFoundException {
         return exchangeOrderRepository.findById(exchangeOrderId).orElseThrow(ExchangeOrderNotFoundException::new);

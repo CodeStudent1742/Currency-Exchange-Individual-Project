@@ -39,5 +39,8 @@ public class GlobalHttpErrorHandle extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNotFoundException(ValueOutOfBalanceException exception){
         return new ResponseEntity<>("You want to withdraw more than you have on Account", HttpStatus.BAD_REQUEST);
     }
-
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(TransactionNotFoundException exception){
+        return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
+    }
 }

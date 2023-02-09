@@ -16,4 +16,7 @@ public interface ExchangeOrderRepository extends CrudRepository<ExchangeOrder,Lo
     Optional<ExchangeOrder> findById(Long id);
 
     List<ExchangeOrder> findAll();
+
+    @Override
+    Iterable<ExchangeOrder> findAllById(Iterable<Long> longs);
 }

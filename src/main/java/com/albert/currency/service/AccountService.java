@@ -17,7 +17,6 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final AccountRecordRepository accountRecordRepository;
 
     public void save(Account account) {
         accountRepository.save(account);

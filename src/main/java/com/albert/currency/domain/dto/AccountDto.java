@@ -19,7 +19,7 @@ public class AccountDto {
     private BigDecimal balanceEUR;
     private BigDecimal balanceUSD;
     private BigDecimal balanceCHF;
-    private BigDecimal balanceGPD;
+    private BigDecimal balanceGBP;
 
     private Long userId;
     private List<Long> accountRecordIds;

@@ -1,6 +1,5 @@
 package com.albert.currency.domain.dto;
 
-
 import com.albert.currency.domain.ExchangeStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,14 +11,12 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExchangeOrderDto {
-
-    private Long orderId;
+public class NewExchangeOrderDto {
 
     private LocalDate exchangeDate;
     private ExchangeStatus exchangeStatus;
     private Long accountRecordId;
     private Long userId;
-
     private List<Long> orderTransactionIds;
+
 }

@@ -33,7 +33,7 @@ public class User {
             mappedBy = "user",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
-    private List<AccountRecord> accountStatusCopies = new ArrayList<>();
+    private List<AccountRecord> accountRecords = new ArrayList<>();
 
     @OneToMany(
             targetEntity = ExchangeOrder.class,
@@ -48,7 +48,8 @@ public class User {
 
 
     public User(String userName){
-
         this.userName = userName;
+        this.account = new Account(this);
+        this.cart = new Cart(this);
     }
 }

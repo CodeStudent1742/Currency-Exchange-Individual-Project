@@ -18,8 +18,8 @@ public class AccountRecord {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "COPY_ID")
-    Long copyId;
+    @Column(name = "RECORD_ID")
+    Long recordId;
 
     @Column(name = "PLN_BALANCE")
     private BigDecimal balancePLN;

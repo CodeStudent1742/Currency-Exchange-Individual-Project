@@ -33,4 +33,7 @@ public class Cart {
             fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 
+    public Cart(User user) {
+        this.user = user;
+    }
 }

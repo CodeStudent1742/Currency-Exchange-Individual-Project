@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface AccountRecordRepository extends CrudRepository<AccountRecord, Long> {
 
     @Override
-    Optional<AccountRecord> findById(Long accountStatusCopyId);
+    Optional<AccountRecord> findById(Long accountRecordId);
 
 }

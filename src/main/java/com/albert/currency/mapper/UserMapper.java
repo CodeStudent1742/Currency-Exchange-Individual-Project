@@ -18,7 +18,7 @@ public class UserMapper {
                 user.getUserId(),
                 user.getCart().getCartId(),
                 user.getAccount().getAccountId(),
-                mapToAccountStatusCopyIds(user.getAccountStatusCopies()),
+                mapToRecordIds(user.getAccountRecords()),
                 mapToExchangeOrderIds(user.getExchangeOrders()),
                 user.getUserName()
         );
@@ -30,9 +30,9 @@ public class UserMapper {
                 .collect(Collectors.toList());
     }
 
-    private List<Long> mapToAccountStatusCopyIds(List<AccountRecord> accountStatusCopies) {
+    private List<Long> mapToRecordIds(List<AccountRecord> accountStatusCopies) {
         return accountStatusCopies.stream()
-                .map(AccountRecord::getCopyId)
+                .map(AccountRecord::getRecordId)
                 .collect(Collectors.toList());
     }
 

@@ -43,8 +43,8 @@ public class UserService {
         user.setUserName(userDto.getUserName());
         user.setCart(cartRepository.findById(userDto.getCartId()).orElseThrow(CartNotFoundException::new));
         user.setAccount(accountRepository.findById(userDto.getAccountId()).orElseThrow(AccountNotFoundException::new));
-        user.setAccountStatusCopies(accountRecordMapper.mapToAccountRecords(userDto.getAccountStatusCopyIds()));
-        user.setExchangeOrders(exchangeOrderMapper.mapToExchangeOrders(userDto.getExchangeOrderIds()));
+        user.setAccountRecords(accountRecordMapper.mapToAccountRecords(userDto.getAccountStatusCopyIds()));
+        user.setExchangeOrders(exchangeOrderMapper.mapToExchangeOrdersById(userDto.getExchangeOrderIds()));
         userRepository.save(user);
         return user;
     }

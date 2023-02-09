@@ -30,8 +30,8 @@ public class Account {
     private BigDecimal balanceUSD;
     @Column(name = "CHF_BALANCE")
     private BigDecimal balanceCHF;
-    @Column(name = "GPD_BALANCE")
-    private BigDecimal balanceGPD;
+    @Column(name = "GBP_BALANCE")
+    private BigDecimal balanceGBP;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
@@ -43,5 +43,14 @@ public class Account {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     List<AccountRecord> accountRecords;
+
+    public Account(User user){
+        this.user = user;
+        this.balancePLN = new BigDecimal(0);
+        this.balanceEUR = new BigDecimal(0);
+        this.balanceUSD = new BigDecimal(0);
+        this.balanceGBP = new BigDecimal(0);
+        this.balanceCHF = new BigDecimal(0);
+    }
 
 }

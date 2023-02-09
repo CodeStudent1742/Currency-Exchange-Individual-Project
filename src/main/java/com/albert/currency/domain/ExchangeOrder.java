@@ -42,4 +42,11 @@ public class ExchangeOrder {
             fetch = FetchType.LAZY)
     private List<Transaction> orderTransactions = new ArrayList<>();
 
+    public ExchangeOrder(LocalDate exchangeDate, ExchangeStatus exchangeStatus, AccountRecord accountRecord, User user, List<Transaction> orderTransactions) {
+        this.exchangeDate = exchangeDate;
+        this.exchangeStatus = exchangeStatus;
+        this.accountRecord = accountRecord;
+        this.user = user;
+        this.orderTransactions = orderTransactions;
+    }
 }

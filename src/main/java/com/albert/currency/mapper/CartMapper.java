@@ -30,7 +30,7 @@ public class CartMapper {
                 .collect(Collectors.toList());
     }
 
-    public List<CartDto> mapToCartsDtos(List<Cart> carts) {
+    public List<CartDto> mapToCartsDto(List<Cart> carts) {
         return carts.stream()
                 .map(this::mapToCartDto)
                 .collect(Collectors.toList());

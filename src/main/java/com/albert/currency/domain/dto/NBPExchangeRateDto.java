@@ -1,19 +1,19 @@
 package com.albert.currency.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class NBPExchangeRateDto {
 
-    private BigDecimal EUR_PLN;
-    private BigDecimal USD_PLN;
-    private BigDecimal CBP_PLN;
-    private BigDecimal CHF_PLN;
+    private Double bid_EUR_PLN;
+    private Double ask_EUR_PLN;
+    private Double bid_USD_PLN;
+    private Double ask_USD_PLN;
+    private Double bid_GBP_PLN;
+    private Double ask_GBP_PLN;
+    private Double bid_CHF_PLN;
+    private Double ask_CHF_PLN;
 
 }

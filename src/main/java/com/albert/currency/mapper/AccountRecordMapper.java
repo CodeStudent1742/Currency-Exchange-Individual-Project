@@ -15,13 +15,13 @@ public class AccountRecordMapper {
 
     private final AccountRecordRepository accountRecordRepository;
 
-    public List<AccountRecord> mapToAccountRecords(List<Long> accountRecordIds) {
-        List<AccountRecord> results = new ArrayList<>();
-        if (Objects.nonNull(accountRecordIds)) {
-            for (Long id : accountRecordIds) {
-                accountRecordRepository.findById(id).ifPresent(results::add);
-            }
-        }
-        return results;
-    }
+//    public List<AccountRecord> mapToAccountRecords(List<Long> accountRecordIds) {
+//        List<AccountRecord> results = new ArrayList<>();
+//        if (Objects.nonNull(accountRecordIds)) {
+//            for (Long id : accountRecordIds) {
+//                accountRecordRepository.findById(id).ifPresent(results::add);
+//            }
+//        }
+//        return results;
+//    }
 }

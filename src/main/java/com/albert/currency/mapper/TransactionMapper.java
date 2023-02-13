@@ -19,7 +19,7 @@ public class TransactionMapper {
                 transaction.getExchangeOrder().getExchangeOrderId()
         );
     }
-    public List<TransactionDto> mapToTransactionsDtos(List<Transaction> transactions) {
+    public List<TransactionDto> mapToTransactionsDto(List<Transaction> transactions) {
         return transactions.stream().map(this::mapToTransactionDto).collect(Collectors.toList());
     }
 }

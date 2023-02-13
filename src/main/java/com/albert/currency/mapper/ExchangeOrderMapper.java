@@ -14,9 +14,7 @@ import com.albert.currency.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -29,15 +27,15 @@ public class ExchangeOrderMapper {
     private final UserRepository userRepository;
     private final AccountRecordRepository accountRecordRepository;
 
-    public List<ExchangeOrder> mapToExchangeOrdersById(List<Long> exchangeOrderIds) {
-        List<ExchangeOrder> results = new ArrayList<>();
-        if (Objects.nonNull(exchangeOrderIds)) {
-            for (Long id : exchangeOrderIds) {
-                exchangeOrderRepository.findById(id).ifPresent(results::add);
-            }
-        }
-        return results;
-    }
+//    public List<ExchangeOrder> mapToExchangeOrdersById(List<Long> exchangeOrderIds) {
+//        List<ExchangeOrder> results = new ArrayList<>();
+//        if (Objects.nonNull(exchangeOrderIds)) {
+//            for (Long id : exchangeOrderIds) {
+//                exchangeOrderRepository.findById(id).ifPresent(results::add);
+//            }
+//        }
+//        return results;
+//    }
 
     public ExchangeOrderDto mapToExchangeOrderDto(ExchangeOrder exchangeOrder) {
         return new ExchangeOrderDto(
@@ -56,7 +54,7 @@ public class ExchangeOrderMapper {
                 .collect(Collectors.toList());
     }
 
-    public List<ExchangeOrderDto> mapToExchangeOrdersDtos(List<ExchangeOrder> exchangeOrders) {
+    public List<ExchangeOrderDto> mapToExchangeOrdersDto(List<ExchangeOrder> exchangeOrders) {
         return exchangeOrders.stream()
                 .map(this::mapToExchangeOrderDto)
                 .collect(Collectors.toList());
@@ -72,13 +70,9 @@ public class ExchangeOrderMapper {
         );
     }
 
-    public ExchangeOrder mapToExchangeOrder(ExchangeOrderDto exchangeOrderDto) throws ExchangeOrderNotFoundException, UserNotFoundException, AccountRecordNotFoundException {
+    public ExchangeOrder mapToExchangeOrder(ExchangeOrderDto exchangeOrderDto) throws ExchangeOrderNotFoundException {
         ExchangeOrder exchangeOrder = exchangeOrderRepository.findById(exchangeOrderDto.getOrderId()).orElseThrow(ExchangeOrderNotFoundException::new);
-        exchangeOrder.setExchangeDate(exchangeOrderDto.getExchangeDate());
         exchangeOrder.setExchangeStatus(exchangeOrderDto.getExchangeStatus());
-        exchangeOrder.setAccountRecord(accountRecordRepository.findById(exchangeOrderDto.getAccountRecordId()).orElseThrow(AccountRecordNotFoundException::new));
-        exchangeOrder.setUser(userRepository.findById(exchangeOrderDto.getUserId()).orElseThrow(UserNotFoundException::new));
-        exchangeOrder.setOrderTransactions(transferToTransactions(transactionRepository.findAllById(exchangeOrderDto.getOrderTransactionIds())));
         return exchangeOrder;
     }
 

@@ -32,7 +32,7 @@ public class AccountMapper {
 
     }
 
-    public List<AccountDto> mapToAccountDtos(List<Account> accounts) {
+    public List<AccountDto> mapToAccountsDto(List<Account> accounts) {
         return accounts.stream()
                 .map(this::mapToAccountDto)
                 .collect(Collectors.toList());

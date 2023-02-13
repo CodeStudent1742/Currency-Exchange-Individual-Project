@@ -16,10 +16,11 @@ import java.util.List;
 @Entity
 @Table(name = "EXCHANGE_ORDERS")
 public class ExchangeOrder {
+
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "EXCHANGE_ORDER_ID")
+    @Column(name = "EXCHANGE_ORDER_ID", unique = true)
     private Long exchangeOrderId;
 
     @Column(name="EXCHANGE_DATE")
@@ -28,7 +29,7 @@ public class ExchangeOrder {
     private ExchangeStatus exchangeStatus;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "COPY_ID")
+    @JoinColumn(name = "RECORD_ID")
     private AccountRecord accountRecord;
 
     @ManyToOne(cascade = CascadeType.MERGE)

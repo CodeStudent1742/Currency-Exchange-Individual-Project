@@ -33,7 +33,7 @@ public class AccountController {
     @GetMapping
     public ResponseEntity<List<AccountDto>> getAllAccounts(){
         List<Account> accounts = accountService.getAllAccounts();
-        return ResponseEntity.ok(accountMapper.mapToAccountDtos(accounts));
+        return ResponseEntity.ok(accountMapper.mapToAccountsDto(accounts));
     }
     @DeleteMapping(value = "{accountId}")
     public ResponseEntity<Void> deleteAccount(@PathVariable Long accountId){

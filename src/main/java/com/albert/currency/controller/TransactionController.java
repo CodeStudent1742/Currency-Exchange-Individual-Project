@@ -22,7 +22,7 @@ public class TransactionController {
     @GetMapping
     public ResponseEntity<List<TransactionDto>> getAllTransactions() {
         List<Transaction> transactions = transactionService.getAllTransactions();
-        return ResponseEntity.ok(transactionMapper.mapToTransactionsDtos(transactions));
+        return ResponseEntity.ok(transactionMapper.mapToTransactionsDto(transactions));
     }
 
     @GetMapping(value = "{transactionId}")

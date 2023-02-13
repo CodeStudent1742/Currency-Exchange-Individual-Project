@@ -37,7 +37,7 @@ public class UserController {
     @GetMapping(value = "{userId}/transactions")
     public ResponseEntity<List<TransactionDto>> getUserTransactions(@PathVariable Long userId) throws UserNotFoundException {
         User user = userService.getUser(userId);
-        return ResponseEntity.ok(transactionMapper.mapToTransactionsDtos(user.getCart().getTransactions()));
+        return ResponseEntity.ok(transactionMapper.mapToTransactionsDto(user.getCart().getTransactions()));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

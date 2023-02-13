@@ -30,7 +30,7 @@ public class Transaction {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CART_ID")
     private Cart cart;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EXCHANGE_ORDER_ID")
     private ExchangeOrder exchangeOrder;
 

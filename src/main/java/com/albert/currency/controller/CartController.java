@@ -30,7 +30,7 @@ public class CartController {
     @GetMapping
     public ResponseEntity<List<CartDto>> getCarts(){
         List<Cart> carts = cartService.getAllCarts();
-        return ResponseEntity.ok(cartMapper.mapToCartsDtos(carts));
+        return ResponseEntity.ok(cartMapper.mapToCartsDto(carts));
     }
 
     @GetMapping(value = "{cartId}")
@@ -42,7 +42,7 @@ public class CartController {
     @GetMapping(value = "{cartId}/transactions")
     public ResponseEntity<List<TransactionDto>> getAllTransactionsInCart(@PathVariable Long cartId) throws CartNotFoundException {
         Cart cart = cartService.getCart(cartId);
-        return ResponseEntity.ok(transactionMapper.mapToTransactionsDtos(cart.getTransactions()));
+        return ResponseEntity.ok(transactionMapper.mapToTransactionsDto(cart.getTransactions()));
     }
     @DeleteMapping(value = "{cartId}")
     public ResponseEntity<Void> deleteCart(@PathVariable Long cartId){

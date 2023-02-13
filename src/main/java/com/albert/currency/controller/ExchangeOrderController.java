@@ -7,7 +7,6 @@ import com.albert.currency.domain.ExchangeOrder;
 import com.albert.currency.domain.dto.ExchangeOrderDto;
 import com.albert.currency.domain.dto.NewExchangeOrderDto;
 import com.albert.currency.mapper.ExchangeOrderMapper;
-import com.albert.currency.repository.ExchangeOrderRepository;
 import com.albert.currency.service.ExchangeOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -27,7 +26,7 @@ public class ExchangeOrderController {
     @GetMapping
     public ResponseEntity<List<ExchangeOrderDto>> getExchangeOrders() {
         List<ExchangeOrder> exchangeOrders = exchangeOrderService.getAllExchangeOrders();
-        return ResponseEntity.ok(exchangeOrderMapper.mapToExchangeOrdersDtos(exchangeOrders));
+        return ResponseEntity.ok(exchangeOrderMapper.mapToExchangeOrdersDto(exchangeOrders));
 
     }
 

@@ -46,7 +46,7 @@ public class GoogleClient {
 
     public List<GoogleNearbyDto> getNearbyCantors() {
 //        URI url = urlCreation();
-//        String url2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=50.062047%2C19.936279&radius=1000&type=currency_exchange&keyword=kantor&key=AIzaSyConav2hzCnAPmbN2Wxv2blRVgLgSj6DSA";
+//        String url2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=50.062047%2C19.936279&radius=1000&type=currency_exchange&keyword=kantor&key";
         try {
 //            GoogleReply response = restTemplate.getForObject(url2, GoogleReply.class);
 //            System.out.println(response);
@@ -64,7 +64,8 @@ public class GoogleClient {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
             Request request = new Request.Builder()
-                    .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=50.062047%2C19.936279&radius=1000&type=currency_exchange&keyword=kantor&key=AIzaSyConav2hzCnAPmbN2Wxv2blRVgLgSj6DSA")
+                    // klucz do dodania
+                    .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=50.062047%2C19.936279&radius=1000&type=currency_exchange&keyword=kantor&key="+ "...")
                     .method("GET",null)
                     .build();
             Response response = client.newCall(request).execute();

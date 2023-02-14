@@ -1,4 +1,4 @@
-package com.albert.currency.domain.dto;
+package com.albert.currency.domain.dto.nbp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

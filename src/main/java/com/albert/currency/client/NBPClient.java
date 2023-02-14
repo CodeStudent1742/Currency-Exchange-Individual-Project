@@ -1,8 +1,8 @@
 package com.albert.currency.client;
 
 import com.albert.currency.domain.dto.NBPExchangeRateDto;
-import com.albert.currency.domain.dto.NBPResponse;
-import com.albert.currency.domain.dto.Rate;
+import com.albert.currency.domain.dto.nbp.NBPResponse;
+import com.albert.currency.domain.dto.nbp.Rate;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

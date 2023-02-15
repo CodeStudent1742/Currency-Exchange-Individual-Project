@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class NBPMapper {
+public class NBPExchangeRateMapper {
 
     public NBPExchangeRate mapToNBPExchangeRate(NBPExchangeRateDto nbpExchangeRateDto) {
         return new NBPExchangeRate(

@@ -14,9 +14,11 @@ public class TransactionMapper {
         return new TransactionDto(
                 transaction.getTransactionId(),
                 transaction.getExchangeOperation(),
+                transaction.getTransactionVolume(),
                 transaction.getTransactionValue(),
                 transaction.getCart().getCartId(),
-                transaction.getExchangeOrder().getExchangeOrderId()
+                transaction.getExchangeOrder().getExchangeOrderId(),
+                transaction.getCantor().getCantorRatesId()
         );
     }
     public List<TransactionDto> mapToTransactionsDto(List<Transaction> transactions) {

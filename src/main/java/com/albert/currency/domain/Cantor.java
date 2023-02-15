@@ -39,6 +39,9 @@ public class Cantor {
     @Column( name ="SELLING_CHF")
     private Double sellingRateCHF;
 
+    @OneToOne(mappedBy = "cantor")
+    private Transaction transaction;
+
     public Cantor(NBPExchangeRate nbpExchangeRate){
         calculateCantorRates(nbpExchangeRate);
     }

@@ -14,9 +14,11 @@ public class TransactionDto {
 
     private Long transactionId;
     private ExchangeOperation exchangeOperation;
-    private BigDecimal transactionValue;
+    private Double transactionVolume;
+    private Double transactionValue;
 
     private Long cartId;
     private Long exchangeOrderId;
+    private Long cantorRatesId;
 
 }

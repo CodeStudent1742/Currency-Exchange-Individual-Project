@@ -2,8 +2,12 @@ package com.albert.currency.domain.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class NBPExchangeRateDto {
+
+    private LocalDate rateCheckDate = LocalDate.now();
 
     private Double bid_EUR_PLN;
     private Double ask_EUR_PLN;

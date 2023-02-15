@@ -15,8 +15,8 @@ public class CantorDto {
     private BigDecimal sellingRateEUR;
     private BigDecimal purchaseRateUSD;
     private BigDecimal sellingRateUSD;
-    private BigDecimal purchaseRateGPD;
-    private BigDecimal sellingRateGPD;
+    private BigDecimal purchaseRateGBP;
+    private BigDecimal sellingRateGBP;
     private BigDecimal purchaseRateCHF;
     private BigDecimal sellingRateCHF;
 

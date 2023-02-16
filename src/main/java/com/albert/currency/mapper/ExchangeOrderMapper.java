@@ -64,7 +64,6 @@ public class ExchangeOrderMapper {
         return new ExchangeOrder(
                 newExchangeOrderDto.getExchangeDate(),
                 newExchangeOrderDto.getExchangeStatus(),
-                accountRecordRepository.findById(newExchangeOrderDto.getAccountRecordId()).orElseThrow(AccountRecordNotFoundException::new),
                 userRepository.findById(newExchangeOrderDto.getUserId()).orElseThrow(UserNotFoundException::new),
                 transferToTransactions(transactionRepository.findAllById(newExchangeOrderDto.getOrderTransactionIds()))
         );

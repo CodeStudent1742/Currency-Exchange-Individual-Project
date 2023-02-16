@@ -43,4 +43,12 @@ public class GlobalHttpErrorHandle extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNotFoundException(TransactionNotFoundException exception){
         return new ResponseEntity<>("Requested data doesn't exist", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(NoProductsInCartException exception){
+        return new ResponseEntity<>("No Products in Cart", HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(NoSufficientFundsException exception){
+        return new ResponseEntity<>("You do not have enough funds in Account", HttpStatus.BAD_REQUEST);
+    }
 }

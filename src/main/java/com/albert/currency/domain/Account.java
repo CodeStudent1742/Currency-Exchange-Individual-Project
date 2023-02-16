@@ -52,5 +52,11 @@ public class Account {
         this.balanceGBP = new BigDecimal(0);
         this.balanceCHF = new BigDecimal(0);
     }
-
+    public void subtractCartBalanceFromAccountBalance(CartBalance cartBalance) {
+        setBalancePLN(getBalancePLN().subtract(cartBalance.getBalancePLN()));
+        setBalanceEUR(getBalanceEUR().subtract(cartBalance.getBalanceEUR()));
+        setBalanceUSD(getBalanceUSD().subtract(cartBalance.getBalanceUSD()));
+        setBalanceCHF(getBalanceCHF().subtract(cartBalance.getBalanceCHF()));
+        setBalanceGBP(getBalanceGBP().subtract(cartBalance.getBalanceGBP()));
+    }
 }

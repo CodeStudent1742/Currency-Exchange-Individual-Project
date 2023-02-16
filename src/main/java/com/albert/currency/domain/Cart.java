@@ -33,7 +33,31 @@ public class Cart {
             fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name= "CART_BALANCE_ID")
+    private CartBalance cartBalance;
+
     public Cart(User user) {
         this.user = user;
     }
+
+    public boolean isSufficientFunds() {
+        if (cartBalance.getBalancePLN().compareTo(user.getAccount().getBalancePLN()) > 0) {
+            return false;
+        }
+        if (cartBalance.getBalanceEUR().compareTo(user.getAccount().getBalanceEUR()) > 0) {
+            return false;
+        }
+        if (cartBalance.getBalanceUSD().compareTo(user.getAccount().getBalanceUSD()) > 0) {
+            return false;
+        }
+        if (cartBalance.getBalanceCHF().compareTo(user.getAccount().getBalanceCHF()) > 0) {
+            return false;
+        }
+        if (cartBalance.getBalanceGBP().compareTo(user.getAccount().getBalanceGBP()) > 0) {
+            return false;
+        }
+        return true;
+    }
+
 }

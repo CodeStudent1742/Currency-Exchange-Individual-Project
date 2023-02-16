@@ -12,4 +12,5 @@ public class GoogleReply {
     private Result[] results;
     @JsonProperty("next_page_token")
     public String nextPageToken;
+
 }

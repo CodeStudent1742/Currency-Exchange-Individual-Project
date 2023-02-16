@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
@@ -19,13 +20,14 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class GoogleClient {
 
-//    private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleClient.class);
 
@@ -46,33 +48,11 @@ public class GoogleClient {
 
     public List<GoogleNearbyDto> getNearbyCantors() {
 //        URI url = urlCreation();
-//        String url2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=50.062047%2C19.936279&radius=1000&type=currency_exchange&keyword=kantor&key";
+        String url2 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=50.062047%2C19.936279&radius=1000&type=currency_exchange&keyword=kantor&key=AIzaSyBMdw22ErHw7zWNidaxisdpUo2A-1JOpAA";
         try {
-//            GoogleReply response = restTemplate.getForObject(url2, GoogleReply.class);
-//            System.out.println(response);
-//           return Arrays.stream(Objects.requireNonNull(response).getResults())
-//                    .map(result -> {
-//                        GoogleNearbyDto nearbyDto = new GoogleNearbyDto();
-//                        nearbyDto.setName(result.getName());
-//                        nearbyDto.setRating(result.getRating());
-//                        nearbyDto.setVicinity(result.getVicinity());
-//                        nearbyDto.setLat(result.getGeometry().getLocation().getLat());
-//                        nearbyDto.setLng(result.getGeometry().getLocation().getLng());
-//                        return nearbyDto;
-//                    })
-//                    .collect(Collectors.toList());
-            OkHttpClient client = new OkHttpClient().newBuilder()
-                    .build();
-            Request request = new Request.Builder()
-                    // klucz do dodania
-                    .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=50.062047%2C19.936279&radius=1000&type=currency_exchange&keyword=kantor&key="+ "...")
-                    .method("GET",null)
-                    .build();
-            Response response = client.newCall(request).execute();
-            System.out.println(response);
-            String responseBody = response.body().string();
-            GoogleReply googleReply = objectMapper.readValue(responseBody, GoogleReply.class);
-           return Arrays.stream(googleReply.getResults())
+            GoogleReply response2 = restTemplate.getForObject(url2, GoogleReply.class);
+            System.out.println(response2);
+            return Arrays.stream(Objects.requireNonNull(response2).getResults())
                     .map(result -> {
                         GoogleNearbyDto nearbyDto = new GoogleNearbyDto();
                         nearbyDto.setName(result.getName());
@@ -83,7 +63,33 @@ public class GoogleClient {
                         return nearbyDto;
                     })
                     .collect(Collectors.toList());
-        } catch (RestClientException | IOException e) {
+//            OkHttpClient client = new OkHttpClient().newBuilder()
+//                    .build();
+//            Request request = new Request.Builder()
+//                    // klucz do dodania
+//                    .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=50.062047%2C19.936279&radius=1000&type=currency_exchange&keyword=kantor&key="+ "AIzaSyBMdw22ErHw7zWNidaxisdpUo2A-1JOpAA")
+//                    .method("GET",null)
+//                    .build();
+//            Response response = client.newCall(request).execute();
+//            System.out.println(response);
+//            String responseBody = response.body().string();
+//            GoogleReply googleReply = objectMapper.readValue(responseBody, GoogleReply.class);
+//           return Arrays.stream(googleReply.getResults())
+//                    .map(result -> {
+//                        GoogleNearbyDto nearbyDto = new GoogleNearbyDto();
+//                        nearbyDto.setName(result.getName());
+//                        nearbyDto.setRating(result.getRating());
+//                        nearbyDto.setVicinity(result.getVicinity());
+//                        nearbyDto.setLat(result.getGeometry().getLocation().getLat());
+//                        nearbyDto.setLng(result.getGeometry().getLocation().getLng());
+//                        return nearbyDto;
+//                    })
+//                    .collect(Collectors.toList());
+//        } catch (RestClientException | IOException e) {
+//            LOGGER.error(e.getMessage(), e);
+//            return Collections.emptyList();
+//        }
+        } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
             return Collections.emptyList();
         }

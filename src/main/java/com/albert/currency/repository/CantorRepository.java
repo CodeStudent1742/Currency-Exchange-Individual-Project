@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Transactional
 public interface CantorRepository extends CrudRepository<Cantor,Long> {
+
+     Cantor findTopByOrderByCantorRatesIdDesc();
 }

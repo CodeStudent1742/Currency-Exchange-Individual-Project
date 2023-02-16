@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name="CANTOR")
 public class Cantor {
+
     @Id
     @GeneratedValue
     @NotNull
@@ -20,7 +21,7 @@ public class Cantor {
     private Long cantorRatesId;
 
     @Column( name ="CANTOR_RATES_DATE")
-    private LocalDate ratesCheckDate = LocalDate.now();
+    private LocalDate ratesCheckDate;
 
     @Column( name ="PURCHASE_EUR")
     private Double purchaseRateEUR;

@@ -28,10 +28,8 @@ public class NBPClient {
     @Value("${nbp.rates.all}")
     private String npbApiEndpoint;
 
-    // NBP update each working day , between 7:45 and 8:15
     public NBPExchangeRateDto getNBPRates() {
-        List<Rate> exchangeRates = getExchangeRates();
-        return getNBPExchangeRateDto(exchangeRates);
+        return getNBPExchangeRateDto(getExchangeRates());
 
     }
 

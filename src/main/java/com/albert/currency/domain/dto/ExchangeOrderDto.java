@@ -18,7 +18,6 @@ public class ExchangeOrderDto {
 
     private LocalDate exchangeDate;
     private ExchangeStatus exchangeStatus;
-    private Long accountRecordId;
     private Long userId;
 
     private List<Long> orderTransactionIds;

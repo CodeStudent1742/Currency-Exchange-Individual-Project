@@ -28,10 +28,6 @@ public class ExchangeOrder {
     @Column(name="EXCHANGE_STATUS")
     private ExchangeStatus exchangeStatus;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "RECORD_ID")
-    private AccountRecord accountRecord;
-
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "USER_ID")
     private User user;

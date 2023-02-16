@@ -42,7 +42,6 @@ public class ExchangeOrderMapper {
                 exchangeOrder.getExchangeOrderId(),
                 exchangeOrder.getExchangeDate(),
                 exchangeOrder.getExchangeStatus(),
-                exchangeOrder.getAccountRecord().getRecordId(),
                 exchangeOrder.getUser().getUserId(),
                 mapToTransactionsId(exchangeOrder.getOrderTransactions())
         );

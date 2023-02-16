@@ -36,9 +36,6 @@ public class AccountRecord {
     @JoinColumn(name = "USER_ID")
     User user;
 
-    @OneToOne(mappedBy = "accountRecord")
-    ExchangeOrder exchangeOrder;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ACCOUNT_ID")
     Account account;

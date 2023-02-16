@@ -27,7 +27,6 @@ public class UserMapper {
                 user.getUserId(),
                 user.getCart().getCartId(),
                 user.getAccount().getAccountId(),
-                mapToRecordIds(user.getAccountRecords()),
                 mapToExchangeOrderIds(user.getExchangeOrders()),
                 user.getUserName()
         );
@@ -39,11 +38,6 @@ public class UserMapper {
                 .collect(Collectors.toList());
     }
 
-    private List<Long> mapToRecordIds(List<AccountRecord> accountStatusCopies) {
-        return accountStatusCopies.stream()
-                .map(AccountRecord::getRecordId)
-                .collect(Collectors.toList());
-    }
 
     public User mapToUser(NewUserDto newUserDto) {
         return new User (

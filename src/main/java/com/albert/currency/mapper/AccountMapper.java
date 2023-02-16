@@ -26,8 +26,7 @@ public class AccountMapper {
                 account.getBalanceUSD(),
                 account.getBalanceCHF(),
                 account.getBalanceGBP(),
-                account.getUser().getUserId(),
-                mapToRecordIds(account.getAccountRecords())
+                account.getUser().getUserId()
         );
 
     }

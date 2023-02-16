@@ -37,13 +37,6 @@ public class Account {
     @JoinColumn(name = "USER_ID")
     User user;
 
-    @OneToMany(
-            targetEntity = AccountRecord.class,
-            mappedBy = "account",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    List<AccountRecord> accountRecords;
-
     public Account(User user){
         this.user = user;
         this.balancePLN = new BigDecimal(0);

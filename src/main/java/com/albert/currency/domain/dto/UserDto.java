@@ -14,7 +14,6 @@ public class UserDto {
     private Long userId;
     private Long cartId;
     private Long accountId;
-    private List<Long> accountStatusCopyIds ;
     private List<Long> exchangeOrderIds ;
     private String userName;
 

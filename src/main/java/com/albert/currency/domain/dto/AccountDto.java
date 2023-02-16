@@ -22,6 +22,5 @@ public class AccountDto {
     private BigDecimal balanceGBP;
 
     private Long userId;
-    private List<Long> accountRecordIds;
 
 }

@@ -29,13 +29,6 @@ public class User {
     private Account account;
 
     @OneToMany(
-            targetEntity = AccountRecord.class,
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    private List<AccountRecord> accountRecords = new ArrayList<>();
-
-    @OneToMany(
             targetEntity = ExchangeOrder.class,
             mappedBy = "user",
             cascade = CascadeType.ALL,

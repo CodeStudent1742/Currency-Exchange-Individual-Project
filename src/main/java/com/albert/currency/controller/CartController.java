@@ -10,6 +10,7 @@ import com.albert.currency.domain.dto.NewCartDto;
 import com.albert.currency.domain.dto.TransactionDto;
 import com.albert.currency.mapper.CartMapper;
 import com.albert.currency.mapper.TransactionMapper;
+import com.albert.currency.repository.CartBalanceRepository;
 import com.albert.currency.service.AccountService;
 import com.albert.currency.service.CartService;
 import com.albert.currency.service.ExchangeOrderService;
@@ -33,6 +34,7 @@ public class CartController {
     private final CartMapper cartMapper;
     private final TransactionMapper transactionMapper;
     private final TransactionService transactionService;
+    private final CartBalanceRepository cartBalanceRepository;
 
     @GetMapping
     public ResponseEntity<List<CartDto>> getCarts() {
@@ -85,11 +87,16 @@ public class CartController {
             account.subtractCartBalanceFromAccountBalance(cartBalance);
             accountService.save(account);
             cartBalance.clearBalance();
+            cartBalanceRepository.save(cartBalance);
             ExchangeOrder exchangeOrder = convertCartToExchangeOrder(cart);
             exchangeOrderService.save(exchangeOrder);
+            cart.setTransactions(new ArrayList<>());
+            cartService.saveCart(cart);
+
         } else {
             throw new NoProductsInCartException();
         }
+        return ResponseEntity.ok().build();
     }
     private  ExchangeOrder convertCartToExchangeOrder(Cart cart) {
         List<Transaction> transactions = new ArrayList<>(cart.getTransactions());
@@ -104,4 +111,5 @@ public class CartController {
         );
         return exchangeOrder;
     }
+
 }

@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,28 +22,24 @@ public class Account {
     private Long accountId;
 
     @Column(name = "PLN_BALANCE")
-    private BigDecimal balancePLN;
+    private BigDecimal balancePLN = new BigDecimal(0);
     @Column(name = "EUR_BALANCE")
-    private BigDecimal balanceEUR;
+    private BigDecimal balanceEUR = new BigDecimal(0);
     @Column(name = "USD_BALANCE")
-    private BigDecimal balanceUSD;
+    private BigDecimal balanceUSD = new BigDecimal(0);
     @Column(name = "CHF_BALANCE")
-    private BigDecimal balanceCHF;
+    private BigDecimal balanceCHF = new BigDecimal(0);
     @Column(name = "GBP_BALANCE")
-    private BigDecimal balanceGBP;
+    private BigDecimal balanceGBP = new BigDecimal(0);
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     User user;
 
-    public Account(User user){
+    public Account(User user) {
         this.user = user;
-        this.balancePLN = new BigDecimal(0);
-        this.balanceEUR = new BigDecimal(0);
-        this.balanceUSD = new BigDecimal(0);
-        this.balanceGBP = new BigDecimal(0);
-        this.balanceCHF = new BigDecimal(0);
     }
+
     public void subtractCartBalanceFromAccountBalance(CartBalance cartBalance) {
         setBalancePLN(getBalancePLN().subtract(cartBalance.getBalancePLN()));
         setBalanceEUR(getBalanceEUR().subtract(cartBalance.getBalanceEUR()));

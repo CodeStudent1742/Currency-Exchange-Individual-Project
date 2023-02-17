@@ -42,7 +42,7 @@ public class CantorTestSuite {
         assertNotEquals(null,cantorTested.getPurchaseRateCHF());
         assertNotEquals(null,cantorTested.getSellingRateGBP());
         assertNotEquals(null,cantorTested.getPurchaseRateGBP());
-
+        System.out.println(cantorTested);
         //CLEANUP
         cantorRepository.deleteAll();
     }

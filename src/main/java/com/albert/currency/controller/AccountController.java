@@ -41,12 +41,12 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
     @PutMapping("{accountId}/put")
-    public ResponseEntity<Void> putIntoAccount(@PathVariable Long accountId, @RequestParam String currency, @RequestParam Integer value) throws AccountNotFoundException, CurrencyNotFoundException {
+    public ResponseEntity<Void> putIntoAccount(@PathVariable Long accountId, @RequestParam String currency, @RequestParam Double value) throws AccountNotFoundException, CurrencyNotFoundException {
         accountService.putIntoAccount(accountId,currency,value);
         return ResponseEntity.ok().build();
     }
     @PutMapping("{accountId}/withdraw")
-    public ResponseEntity<Void> withdrawFromAccount(@PathVariable Long accountId, @RequestParam String currency, @RequestParam Integer value) throws AccountNotFoundException, CurrencyNotFoundException, ValueOutOfBalanceException {
+    public ResponseEntity<Void> withdrawFromAccount(@PathVariable Long accountId, @RequestParam String currency, @RequestParam Double value) throws AccountNotFoundException, CurrencyNotFoundException, ValueOutOfBalanceException {
         accountService.withdrawFromAccount(accountId,currency,value);
         return ResponseEntity.ok().build();
     }

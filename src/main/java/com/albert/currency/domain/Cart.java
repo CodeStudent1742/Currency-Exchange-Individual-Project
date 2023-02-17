@@ -3,6 +3,7 @@ package com.albert.currency.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Entity
 @Table(name="CARTS")
 public class Cart {
@@ -31,6 +33,7 @@ public class Cart {
             mappedBy = "cart",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
+    @Builder.Default
     private List<Transaction> transactions = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.EAGER)

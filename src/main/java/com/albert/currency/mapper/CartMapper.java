@@ -11,17 +11,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CartMapper {
-   private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public CartDto mapToCartDto(Cart cart) {
-        return new CartDto(
-                cart.getCartId(),
-                cart.getUser().getUserId(),
-                mapToTransactionsIds(cart.getTransactions())
-        );
+        return CartDto.builder()
+                .cartId(cart.getCartId())
+                .userId(cart.getUser().getUserId())
+                .transactions(mapToTransactionsIds(cart.getTransactions()))
+                .build();
     }
 
     private List<Long> mapToTransactionsIds(List<Transaction> transactions) {
@@ -37,7 +38,8 @@ public class CartMapper {
     }
 
     public Cart mapToNewCart(NewCartDto newCartDto) throws UserNotFoundException {
-        return new Cart(
-            userRepository.findById(newCartDto.getUserId()).orElseThrow(UserNotFoundException::new));
+       return Cart.builder()
+                .user(userRepository.findById(newCartDto.getUserId()).orElseThrow(UserNotFoundException::new))
+                .build();
     }
 }

@@ -4,7 +4,6 @@ import com.albert.currency.controller.exceptions.AccountNotFoundException;
 import com.albert.currency.controller.exceptions.CurrencyNotFoundException;
 import com.albert.currency.controller.exceptions.ValueOutOfBalanceException;
 import com.albert.currency.domain.Account;
-import com.albert.currency.repository.AccountRecordRepository;
 import com.albert.currency.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

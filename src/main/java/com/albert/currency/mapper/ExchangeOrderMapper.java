@@ -7,7 +7,6 @@ import com.albert.currency.domain.ExchangeOrder;
 import com.albert.currency.domain.Transaction;
 import com.albert.currency.domain.dto.ExchangeOrderDto;
 import com.albert.currency.domain.dto.NewExchangeOrderDto;
-import com.albert.currency.repository.AccountRecordRepository;
 import com.albert.currency.repository.ExchangeOrderRepository;
 import com.albert.currency.repository.TransactionRepository;
 import com.albert.currency.repository.UserRepository;
@@ -21,21 +20,9 @@ import java.util.stream.StreamSupport;
 @Service
 @RequiredArgsConstructor
 public class ExchangeOrderMapper {
-
     private final ExchangeOrderRepository exchangeOrderRepository;
     private final TransactionRepository transactionRepository;
     private final UserRepository userRepository;
-    private final AccountRecordRepository accountRecordRepository;
-
-//    public List<ExchangeOrder> mapToExchangeOrdersById(List<Long> exchangeOrderIds) {
-//        List<ExchangeOrder> results = new ArrayList<>();
-//        if (Objects.nonNull(exchangeOrderIds)) {
-//            for (Long id : exchangeOrderIds) {
-//                exchangeOrderRepository.findById(id).ifPresent(results::add);
-//            }
-//        }
-//        return results;
-//    }
 
     public ExchangeOrderDto mapToExchangeOrderDto(ExchangeOrder exchangeOrder) {
         return new ExchangeOrderDto(

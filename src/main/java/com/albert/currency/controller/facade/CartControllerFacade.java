@@ -1,4 +1,4 @@
-package com.albert.currency.patterns.facade;
+package com.albert.currency.controller.facade;
 
 import com.albert.currency.controller.exceptions.*;
 import com.albert.currency.domain.*;

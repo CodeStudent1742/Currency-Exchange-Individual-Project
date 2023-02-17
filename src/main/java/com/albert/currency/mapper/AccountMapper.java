@@ -2,7 +2,6 @@ package com.albert.currency.mapper;
 
 import com.albert.currency.controller.exceptions.UserNotFoundException;
 import com.albert.currency.domain.Account;
-import com.albert.currency.domain.AccountRecord;
 import com.albert.currency.domain.dto.AccountDto;
 import com.albert.currency.domain.dto.NewAccountDto;
 import com.albert.currency.repository.UserRepository;
@@ -37,11 +36,6 @@ public class AccountMapper {
                 .collect(Collectors.toList());
     }
 
-    private List<Long> mapToRecordIds(List<AccountRecord> accountRecords) {
-        return accountRecords.stream()
-                .map(AccountRecord::getRecordId)
-                .collect(Collectors.toList());
-    }
     public Account mapToAccount(NewAccountDto newAccountDto) throws UserNotFoundException {
         return new Account(
                 userRepository.findById(newAccountDto.getUserId()).orElseThrow(UserNotFoundException::new));

@@ -1,7 +1,6 @@
 package com.albert.currency.mapper;
 
 import com.albert.currency.controller.exceptions.UserNotFoundException;
-import com.albert.currency.domain.AccountRecord;
 import com.albert.currency.domain.ExchangeOrder;
 import com.albert.currency.domain.User;
 import com.albert.currency.domain.dto.NewUserDto;

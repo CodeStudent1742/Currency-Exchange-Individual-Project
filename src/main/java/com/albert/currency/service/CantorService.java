@@ -14,4 +14,7 @@ public class CantorService {
     public Cantor getCantorRates(){
         return cantorRepository.findTopByOrderByCantorRatesIdDesc();
     }
+    public void saveCantor(Cantor cantor){
+        cantorRepository.save(cantor);
+    }
 }

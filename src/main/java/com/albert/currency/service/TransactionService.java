@@ -17,6 +17,9 @@ public class TransactionService {
     public Transaction getTransaction(Long transactionId) throws TransactionNotFoundException {
         return transactionRepository.findById(transactionId).orElseThrow(TransactionNotFoundException::new);
     }
+    public void saveTransaction(final Transaction transaction){
+        transactionRepository.save(transaction);
+    }
 
     public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();

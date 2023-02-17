@@ -1,4 +1,4 @@
-package com.albert.currency.domain;
+package com.albert.currency.service;
 
 public class ExchangeOrderTestSuite {
 }

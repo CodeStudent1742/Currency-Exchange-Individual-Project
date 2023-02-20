@@ -18,7 +18,7 @@ public class CartMapper {
     private final UserRepository userRepository;
 
     public CartDto mapToCartDto(Cart cart) {
-        return CartDto.builder()
+        return new CartDto.CartDtoBuilder()
                 .cartId(cart.getCartId())
                 .userId(cart.getUser().getUserId())
                 .transactions(mapToTransactionsIds(cart.getTransactions()))
@@ -38,7 +38,7 @@ public class CartMapper {
     }
 
     public Cart mapToNewCart(NewCartDto newCartDto) throws UserNotFoundException {
-       return Cart.builder()
+        return new Cart.CartBuilder()
                 .user(userRepository.findById(newCartDto.getUserId()).orElseThrow(UserNotFoundException::new))
                 .build();
     }

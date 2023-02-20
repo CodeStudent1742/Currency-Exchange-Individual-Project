@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Builder
 @Entity
 @Table(name="CARTS")
 public class Cart {
@@ -33,7 +32,6 @@ public class Cart {
             mappedBy = "cart",
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
-    @Builder.Default
     private List<Transaction> transactions = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -62,5 +60,44 @@ public class Cart {
         }
         return true;
     }
+    public static class CartBuilder {
+        private Long cartId;
+        private User user;
+        private List<Transaction> transactions = new ArrayList<>();
+        private CartBalance cartBalance;
 
+        public CartBuilder cartId(Long cartId) {
+            this.cartId = cartId;
+            return this;
+        }
+
+        public CartBuilder user(User user) {
+            this.user = user;
+            return this;
+        }
+
+        public CartBuilder transaction(Transaction transaction) {
+            this.transactions.add(transaction);
+            return this;
+        }
+
+        public CartBuilder transactions(List<Transaction> transactions) {
+            this.transactions = transactions;
+            return this;
+        }
+
+        public CartBuilder cartBalance(CartBalance cartBalance) {
+            this.cartBalance = cartBalance;
+            return this;
+        }
+
+        public Cart build() {
+            Cart cart = new Cart();
+            cart.setCartId(this.cartId);
+            cart.setUser(this.user);
+            cart.setTransactions(this.transactions);
+            cart.setCartBalance(this.cartBalance);
+            return cart;
+        }
+    }
 }

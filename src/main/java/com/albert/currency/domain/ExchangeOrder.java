@@ -46,4 +46,10 @@ public class ExchangeOrder {
         this.orderTransactions = orderTransactions;
     }
 
+    public ExchangeOrder(ExchangeStatus exchangeStatus, User user, List<Transaction> orderTransactions) {
+        this.exchangeDate = LocalDate.now();
+        this.exchangeStatus = exchangeStatus;
+        this.user = user;
+        this.orderTransactions = orderTransactions;
+    }
 }

@@ -47,4 +47,12 @@ public class Account {
         setBalanceCHF(getBalanceCHF().subtract(cartBalance.getBalanceCHF()));
         setBalanceGBP(getBalanceGBP().subtract(cartBalance.getBalanceGBP()));
     }
+
+    public Account(BigDecimal balancePLN, BigDecimal balanceEUR, BigDecimal balanceUSD, BigDecimal balanceCHF, BigDecimal balanceGBP) {
+        this.balancePLN = balancePLN;
+        this.balanceEUR = balanceEUR;
+        this.balanceUSD = balanceUSD;
+        this.balanceCHF = balanceCHF;
+        this.balanceGBP = balanceGBP;
+    }
 }

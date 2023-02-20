@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +19,9 @@ public class TransactionDto {
     private Long exchangeOrderId;
     private Long cantorRatesId;
 
+    public TransactionDto(ExchangeOperation exchangeOperation, Double transactionVolume, Long cartId) {
+        this.exchangeOperation = exchangeOperation;
+        this.transactionVolume = transactionVolume;
+        this.cartId = cartId;
+    }
 }

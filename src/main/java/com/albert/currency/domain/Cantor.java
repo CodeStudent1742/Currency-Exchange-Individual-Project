@@ -21,7 +21,7 @@ public class Cantor {
     private Long cantorRatesId;
 
     @Column( name ="CANTOR_RATES_DATE")
-    private LocalDate ratesCheckDate;
+    private LocalDate ratesCheckDate = LocalDate.now();
 
     @Column( name ="PURCHASE_EUR")
     private Double purchaseRateEUR;

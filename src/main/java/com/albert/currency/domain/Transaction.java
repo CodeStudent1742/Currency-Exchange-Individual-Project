@@ -48,6 +48,14 @@ public class Transaction {
         this.transactionValue = calculateValue();
     }
 
+    public Transaction(ExchangeOperation exchangeOperation, Double transactionVolume, Cart cart, Cantor cantor) {
+        this.exchangeOperation = exchangeOperation;
+        this.transactionVolume = transactionVolume;
+        this.cart = cart;
+        this.cantor = cantor;
+        transactionValue = calculateValue();
+    }
+
     private Double calculateValue() {
         Double value = Double.valueOf(0);
         switch (exchangeOperation) {

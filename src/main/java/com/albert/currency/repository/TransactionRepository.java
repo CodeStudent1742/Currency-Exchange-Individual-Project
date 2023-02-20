@@ -13,7 +13,7 @@ import java.util.List;
 public interface TransactionRepository extends CrudRepository<Transaction,Long> {
 
     @Override
-    Iterable<Transaction> findAllById(Iterable<Long> transactionsId);
+    List<Transaction> findAllById(Iterable<Long> transactionsId);
 
     @Override
     List<Transaction> findAll();

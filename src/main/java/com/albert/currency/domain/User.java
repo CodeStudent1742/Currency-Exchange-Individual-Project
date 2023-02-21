@@ -32,7 +32,7 @@ public class User {
             targetEntity = ExchangeOrder.class,
             mappedBy = "user",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     private List<ExchangeOrder> exchangeOrders = new ArrayList<>();
 
     @NotNull

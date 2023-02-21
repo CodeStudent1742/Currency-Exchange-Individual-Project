@@ -48,6 +48,15 @@ public class Transaction {
         this.transactionValue = calculateValue();
     }
 
+    public Transaction(ExchangeOperation exchangeOperation, Double transactionVolume, Cart cart, ExchangeOrder exchangeOrder, Cantor cantor) {
+        this.exchangeOperation = exchangeOperation;
+        this.transactionVolume = transactionVolume;
+        this.cart = cart;
+        this.exchangeOrder = exchangeOrder;
+        this.cantor = cantor;
+        this.transactionValue = calculateValue();
+    }
+
     public Transaction(ExchangeOperation exchangeOperation, Double transactionVolume, Cart cart, Cantor cantor) {
         this.exchangeOperation = exchangeOperation;
         this.transactionVolume = transactionVolume;

@@ -2,6 +2,7 @@ package com.albert.currency.domain.dto;
 
 import com.albert.currency.domain.ExchangeStatus;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

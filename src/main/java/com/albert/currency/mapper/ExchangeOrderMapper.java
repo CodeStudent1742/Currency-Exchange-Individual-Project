@@ -1,6 +1,5 @@
 package com.albert.currency.mapper;
 
-import com.albert.currency.controller.exceptions.AccountRecordNotFoundException;
 import com.albert.currency.controller.exceptions.ExchangeOrderNotFoundException;
 import com.albert.currency.controller.exceptions.UserNotFoundException;
 import com.albert.currency.domain.ExchangeOrder;
@@ -46,12 +45,12 @@ public class ExchangeOrderMapper {
                 .collect(Collectors.toList());
     }
 
-    public ExchangeOrder mapToNewExchangeOrder(NewExchangeOrderDto newExchangeOrderDto) throws AccountRecordNotFoundException, UserNotFoundException {
+    public ExchangeOrder mapToNewExchangeOrder(NewExchangeOrderDto newExchangeOrderDto) throws  UserNotFoundException {
         return new ExchangeOrder(
                 newExchangeOrderDto.getExchangeDate(),
                 newExchangeOrderDto.getExchangeStatus(),
                 userRepository.findById(newExchangeOrderDto.getUserId()).orElseThrow(UserNotFoundException::new),
-                transferToTransactions(transactionRepository.findAllById(newExchangeOrderDto.getOrderTransactionIds()))
+                transactionRepository.findAllById(newExchangeOrderDto.getOrderTransactionIds())
         );
     }
 
@@ -61,9 +60,4 @@ public class ExchangeOrderMapper {
         return exchangeOrder;
     }
 
-    private List<Transaction> transferToTransactions(Iterable<Transaction> transactionsIterable) {
-        return StreamSupport.
-                stream(transactionsIterable.spliterator(), false)
-                .collect(Collectors.toList());
-    }
 }

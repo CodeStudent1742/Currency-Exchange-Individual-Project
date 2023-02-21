@@ -23,7 +23,7 @@ public class CartController {
         return ResponseEntity.ok(cartControllerFacade.fetchCarts());
     }
     @GetMapping(value = "{cartId}")
-    public ResponseEntity<CartDto> getUser(@PathVariable Long cartId) throws CartNotFoundException {
+    public ResponseEntity<CartDto> getCart(@PathVariable Long cartId) throws CartNotFoundException {
         return ResponseEntity.ok(cartControllerFacade.fetchCart(cartId));
     }
     @GetMapping(value = "{cartId}/transactions")
@@ -40,6 +40,7 @@ public class CartController {
         cartControllerFacade.createCartFromNewCartDto(newCartDto);
         return ResponseEntity.ok().build();
     }
+
     @PutMapping(value = "{cartId}/{transactionId}")
     public ResponseEntity<Void> addTransactionToCart(@PathVariable Long cartId, @PathVariable Long transactionId) throws CartNotFoundException, TransactionNotFoundException {
         cartControllerFacade.appendTransactionToCart(cartId, transactionId);

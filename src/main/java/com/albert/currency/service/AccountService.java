@@ -4,6 +4,7 @@ import com.albert.currency.controller.exceptions.AccountNotFoundException;
 import com.albert.currency.controller.exceptions.CurrencyNotFoundException;
 import com.albert.currency.controller.exceptions.ValueOutOfBalanceException;
 import com.albert.currency.domain.Account;
+import com.albert.currency.domain.CartBalance;
 import com.albert.currency.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -111,5 +112,13 @@ public class AccountService {
             }
             default -> throw new CurrencyNotFoundException();
         }
+    }
+    public void subtractCartBalanceFromAccountBalance(Account account, CartBalance cartBalance) {
+        account.setBalancePLN(account.getBalancePLN().subtract(cartBalance.getBalancePLN()));
+        account.setBalanceEUR(account.getBalanceEUR().subtract(cartBalance.getBalanceEUR()));
+        account.setBalanceUSD(account.getBalanceUSD().subtract(cartBalance.getBalanceUSD()));
+        account.setBalanceCHF(account.getBalanceCHF().subtract(cartBalance.getBalanceCHF()));
+        account.setBalanceGBP(account.getBalanceGBP().subtract(cartBalance.getBalanceGBP()));
+        accountRepository.save(account);
     }
 }

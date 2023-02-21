@@ -7,11 +7,7 @@ import com.albert.currency.domain.dto.NewCartDto;
 import com.albert.currency.domain.dto.TransactionDto;
 import com.albert.currency.mapper.CartMapper;
 import com.albert.currency.mapper.TransactionMapper;
-import com.albert.currency.repository.CartBalanceRepository;
-import com.albert.currency.service.AccountService;
-import com.albert.currency.service.CartService;
-import com.albert.currency.service.ExchangeOrderService;
-import com.albert.currency.service.TransactionService;
+import com.albert.currency.service.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,12 +22,12 @@ import java.util.List;
 public class CartControllerFacade {
     private static final Logger LOGGER = LoggerFactory.getLogger(CartControllerFacade.class);
     private final CartService cartService;
+    private final CartBalanceService cartBalanceService;
     private final ExchangeOrderService exchangeOrderService;
     private final AccountService accountService;
     private final CartMapper cartMapper;
     private final TransactionMapper transactionMapper;
     private final TransactionService transactionService;
-    private final CartBalanceRepository cartBalanceRepository;
 
 
     public List<CartDto> fetchCarts() {
@@ -58,7 +54,7 @@ public class CartControllerFacade {
     }
 
     public void createCartFromNewCartDto(NewCartDto newCartDto) throws UserNotFoundException {
-        Cart cart = cartMapper.mapToNewCart(newCartDto);
+        Cart cart = cartMapper.mapToCart(newCartDto);
         cartService.saveCart(cart);
         LOGGER.info("Cart saved");
     }
@@ -81,10 +77,9 @@ public class CartControllerFacade {
         }
         if (cart.isSufficientFunds()) {
             cartBalance.calculateCartBalance();
-            account.subtractCartBalanceFromAccountBalance(cartBalance);
-            accountService.save(account);
+            accountService.subtractCartBalanceFromAccountBalance(account,cartBalance);
             cartBalance.clearBalance();
-            cartBalanceRepository.save(cartBalance);
+            cartBalanceService.saveCartBalance(cartBalance);
             ExchangeOrder exchangeOrder = convertCartToExchangeOrder(cart);
             exchangeOrderService.save(exchangeOrder);
             cart.setTransactions(new ArrayList<>());

@@ -37,7 +37,7 @@ public class CartMapper {
                 .collect(Collectors.toList());
     }
 
-    public Cart mapToNewCart(NewCartDto newCartDto) throws UserNotFoundException {
+    public Cart mapToCart(NewCartDto newCartDto) throws UserNotFoundException {
         return new Cart.CartBuilder()
                 .user(userRepository.findById(newCartDto.getUserId()).orElseThrow(UserNotFoundException::new))
                 .build();

@@ -40,14 +40,6 @@ public class Account {
         this.user = user;
     }
 
-    public void subtractCartBalanceFromAccountBalance(CartBalance cartBalance) {
-        setBalancePLN(getBalancePLN().subtract(cartBalance.getBalancePLN()));
-        setBalanceEUR(getBalanceEUR().subtract(cartBalance.getBalanceEUR()));
-        setBalanceUSD(getBalanceUSD().subtract(cartBalance.getBalanceUSD()));
-        setBalanceCHF(getBalanceCHF().subtract(cartBalance.getBalanceCHF()));
-        setBalanceGBP(getBalanceGBP().subtract(cartBalance.getBalanceGBP()));
-    }
-
     public Account(BigDecimal balancePLN, BigDecimal balanceEUR, BigDecimal balanceUSD, BigDecimal balanceCHF, BigDecimal balanceGBP) {
         this.balancePLN = balancePLN;
         this.balanceEUR = balanceEUR;

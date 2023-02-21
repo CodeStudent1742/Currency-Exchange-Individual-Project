@@ -24,4 +24,12 @@ public class TransactionDto {
         this.transactionVolume = transactionVolume;
         this.cartId = cartId;
     }
+
+    public TransactionDto(ExchangeOperation exchangeOperation, Double transactionVolume, Long cartId, Long cantorRatesId) {
+        this.exchangeOperation = exchangeOperation;
+        this.transactionVolume = transactionVolume;
+        this.cartId = cartId;
+        this.cantorRatesId = cantorRatesId;
+
+    }
 }

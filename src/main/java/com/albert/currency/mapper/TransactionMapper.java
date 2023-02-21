@@ -5,15 +5,17 @@ import com.albert.currency.domain.Transaction;
 import com.albert.currency.domain.dto.TransactionDto;
 import com.albert.currency.repository.CantorRepository;
 import com.albert.currency.repository.CartRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TransactionMapper {
-    CartRepository cartRepository;
-    CantorRepository cantorRepository;
+   private final CartRepository cartRepository;
+    private final CantorRepository cantorRepository;
 
     public TransactionDto mapToTransactionDto(Transaction transaction) {
         return new TransactionDto(
@@ -21,8 +23,8 @@ public class TransactionMapper {
                 transaction.getExchangeOperation(),
                 transaction.getTransactionVolume(),
                 transaction.getTransactionValue(),
-                transaction.getCart().getCartId(),
-                transaction.getExchangeOrder().getExchangeOrderId(),
+                transaction.getCart() != null ? transaction.getCart().getCartId() : null,
+                transaction.getExchangeOrder() != null ? transaction.getExchangeOrder().getExchangeOrderId() : null,
                 transaction.getCantor().getCantorRatesId()
         );
     }

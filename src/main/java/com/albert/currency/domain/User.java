@@ -42,7 +42,6 @@ public class User {
 
     public User(String userName){
         this.userName = userName;
-        this.account = new Account(this);
-        this.cart = new Cart(this);
+//        this.account = new Account();
     }
 }

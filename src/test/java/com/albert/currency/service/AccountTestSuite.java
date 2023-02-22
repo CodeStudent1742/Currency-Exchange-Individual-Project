@@ -5,7 +5,6 @@ import com.albert.currency.controller.exceptions.CurrencyNotFoundException;
 import com.albert.currency.controller.exceptions.ValueOutOfBalanceException;
 import com.albert.currency.domain.Account;
 import com.albert.currency.repository.AccountRepository;
-import com.albert.currency.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,6 @@ public class AccountTestSuite {
     private AccountService accountService;
     @Autowired
     private AccountRepository accountRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     @Test
     public void testGetAccountById() throws AccountNotFoundException {

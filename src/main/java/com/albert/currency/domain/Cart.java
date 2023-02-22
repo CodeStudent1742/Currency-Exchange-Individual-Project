@@ -3,7 +3,6 @@ package com.albert.currency.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -38,8 +37,10 @@ public class Cart {
     @JoinColumn(name= "CART_BALANCE_ID")
     private CartBalance cartBalance;
 
-    public Cart(User user) {
+    public Cart(Long cartId, User user, List<Transaction> transactions) {
+        this.cartId = cartId;
         this.user = user;
+        this.transactions = transactions;
     }
 
     public boolean isSufficientFunds() {

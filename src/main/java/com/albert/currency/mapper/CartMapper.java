@@ -2,6 +2,7 @@ package com.albert.currency.mapper;
 
 import com.albert.currency.controller.exceptions.UserNotFoundException;
 import com.albert.currency.domain.Cart;
+import com.albert.currency.domain.CartBalance;
 import com.albert.currency.domain.Transaction;
 import com.albert.currency.domain.dto.CartDto;
 import com.albert.currency.domain.dto.NewCartDto;
@@ -22,6 +23,7 @@ public class CartMapper {
                 .cartId(cart.getCartId())
                 .userId(cart.getUser().getUserId())
                 .transactions(mapToTransactionsIds(cart.getTransactions()))
+                .cartBalanceId(cart.getCartBalance().getCartBalanceId())
                 .build();
     }
 

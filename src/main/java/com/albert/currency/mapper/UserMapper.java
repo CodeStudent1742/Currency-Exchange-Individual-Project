@@ -26,7 +26,7 @@ public class UserMapper {
                 user.getUserId(),
                 user.getCart().getCartId(),
                 user.getAccount().getAccountId(),
-                mapToExchangeOrderIds(user.getExchangeOrders()),
+                user.getExchangeOrders() != null ? mapToExchangeOrderIds(user.getExchangeOrders()) : null,
                 user.getUserName()
         );
     }

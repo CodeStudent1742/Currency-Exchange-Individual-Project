@@ -75,7 +75,7 @@ public class CartControllerFacade {
             LOGGER.error("No products in Cart found to make order");
             throw new NoProductsInCartException();
         }
-        if (cart.isSufficientFunds()) {
+        if (isSufficientFunds(cartBalance,account)) {
             cartBalance.calculateCartBalance();
             accountService.subtractCartBalanceFromAccountBalance(account,cartBalance);
             cartBalance.clearBalance();
@@ -90,18 +90,40 @@ public class CartControllerFacade {
             throw new NoSufficientFundsException();
         }
     }
-    private  ExchangeOrder convertCartToExchangeOrder(Cart cart) {
+    public ExchangeOrder convertCartToExchangeOrder(Cart cart) {
         List<Transaction> transactions = new ArrayList<>(cart.getTransactions());
         for (Transaction transaction : transactions) {
             transaction.setCart(null);
         }
-        ExchangeOrder exchangeOrder = new ExchangeOrder(
+        return new ExchangeOrder(
                 LocalDate.now(),
                 ExchangeStatus.DONE,
                 cart.getUser(),
                 transactions
         );
-        return exchangeOrder;
     }
-
+    public boolean isSufficientFunds(CartBalance cartBalance, Account account) {
+        System.out.println("In method");
+        if (cartBalance.getBalancePLN().compareTo(account.getBalancePLN()) > 0) {
+            System.out.println("Result PLN is: " + cartBalance.getBalancePLN().compareTo(account.getBalancePLN()));
+            return false;
+        }
+        if (cartBalance.getBalanceEUR().compareTo(account.getBalanceEUR()) > 0) {
+            System.out.println("Result EUR is: " +cartBalance.getBalanceEUR().compareTo(account.getBalanceEUR()));
+            return false;
+        }
+        if (cartBalance.getBalanceUSD().compareTo(account.getBalanceUSD()) > 0) {
+            System.out.println("Result USD is: " + cartBalance.getBalanceUSD().compareTo(account.getBalanceUSD()));
+            return false;
+        }
+        if (cartBalance.getBalanceCHF().compareTo(account.getBalanceCHF()) > 0) {
+            System.out.println("Result CHF is: " + cartBalance.getBalanceCHF().compareTo(account.getBalanceCHF()));
+            return false;
+        }
+        if (cartBalance.getBalanceGBP().compareTo(account.getBalanceGBP()) > 0) {
+            System.out.println("Result GBP is: " + cartBalance.getBalanceGBP().compareTo(account.getBalanceGBP()));
+            return false;
+        }
+        return true;
+    }
 }

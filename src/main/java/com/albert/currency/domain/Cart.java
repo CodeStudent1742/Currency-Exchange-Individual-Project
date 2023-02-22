@@ -43,24 +43,6 @@ public class Cart {
         this.transactions = transactions;
     }
 
-    public boolean isSufficientFunds() {
-        if (cartBalance.getBalancePLN().compareTo(user.getAccount().getBalancePLN()) > 0) {
-            return false;
-        }
-        if (cartBalance.getBalanceEUR().compareTo(user.getAccount().getBalanceEUR()) > 0) {
-            return false;
-        }
-        if (cartBalance.getBalanceUSD().compareTo(user.getAccount().getBalanceUSD()) > 0) {
-            return false;
-        }
-        if (cartBalance.getBalanceCHF().compareTo(user.getAccount().getBalanceCHF()) > 0) {
-            return false;
-        }
-        if (cartBalance.getBalanceGBP().compareTo(user.getAccount().getBalanceGBP()) > 0) {
-            return false;
-        }
-        return true;
-    }
     public static class CartBuilder {
         private Long cartId;
         private User user;

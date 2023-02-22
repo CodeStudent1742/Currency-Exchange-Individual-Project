@@ -1,6 +1,9 @@
 package com.albert.currency.controller;
 
 import com.albert.currency.controller.facade.CartControllerFacade;
+import com.albert.currency.domain.Account;
+import com.albert.currency.domain.Cart;
+import com.albert.currency.domain.CartBalance;
 import com.albert.currency.domain.dto.CartDto;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -13,8 +16,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @SpringJUnitWebConfig
@@ -41,8 +47,8 @@ public class CartControllerTestSuite {
     @Test
     public void shouldFetchCarts() throws Exception {
         //GIVEN
-        List<Long> transactions = List.of(1L,2L);
-        List<CartDto> carts = List.of(new CartDto(1L,1L,transactions));
+        List<Long> transactions = List.of(1L, 2L);
+        List<CartDto> carts = List.of(new CartDto(1L, 1L, transactions));
         when(cartControllerFacade.fetchCarts()).thenReturn(carts);
         //WHEN&THEN
         mockMvc
@@ -54,26 +60,27 @@ public class CartControllerTestSuite {
                 .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].cartId", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].userId", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].transactions",Matchers.hasSize(2)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].transactions", Matchers.hasSize(2)));
 
     }
 
     @Test
     public void shouldFetchCartById() throws Exception {
         //GIVEN
-        List<Long> transactions = List.of(1L,2L);
-        CartDto cartDto= new CartDto(1L,1L,transactions);
+        List<Long> transactions = List.of(1L, 2L);
+        CartDto cartDto = new CartDto(1L, 1L, transactions);
         when(cartControllerFacade.fetchCart(1L)).thenReturn(cartDto);
         //WHEN&THEN
         mockMvc
                 .perform(MockMvcRequestBuilders
-                        .get("/v1/cart/{cartId}",1)
+                        .get("/v1/cart/{cartId}", 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 //Cart Fields
                 .andExpect(MockMvcResultMatchers.jsonPath("$.cartId", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userId", Matchers.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.transactions",Matchers.hasSize(2)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.transactions", Matchers.hasSize(2)));
 
     }
+
 }

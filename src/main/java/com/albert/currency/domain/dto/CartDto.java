@@ -36,6 +36,10 @@ public class CartDto {
             this.transactions = transactions;
             return this;
         }
+        public CartDtoBuilder transaction(Long transactionId) {
+            this.transactions.add(transactionId);
+            return this;
+        }
         public CartDtoBuilder cartBalanceId (Long cartBalanceId){
             this.cartBalanceId = cartBalanceId;
             return this;

@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,16 +61,17 @@ public class CartFacadeTestSuite {
         User user = new User();
         user.setUserId(1L);
         Cart cart1 = new Cart(1L, user, new ArrayList<>(), cartBalance);
-        CartDto cartDto1 = new CartDto(1L,1L,new ArrayList<>());
+        CartDto cartDto1 = new CartDto(1L, 1L, new ArrayList<>());
 
         when(cartService.getCart(1L)).thenReturn(cart1);
-        when(cartMapper.mapToCartDto(cart1)).thenReturn(cartDto1 );
+        when(cartMapper.mapToCartDto(cart1)).thenReturn(cartDto1);
         //WHEN
         CartDto recevicedCartDto = cartControllerFacade.fetchCart(1L);
 
         //THEN
         assertNotNull(recevicedCartDto);
     }
+
     @Test
     public void shouldFetchAllTransactionsInCart() throws CartNotFoundException {
         //GIVEN
@@ -84,18 +86,19 @@ public class CartFacadeTestSuite {
         Transaction transaction3 = new Transaction(3L, ExchangeOperation.USD_TO_PLN, 400.0, cart1, null, cantor);
         List<Transaction> transactions = List.of(transaction1, transaction2, transaction3);
         cart1.setTransactions(transactions);
-        TransactionDto transactionDto1 = new TransactionDto(1L, ExchangeOperation.USD_TO_PLN, 400.0,1200.0, 1L, null, 1L);
-        TransactionDto transactionDto2 = new TransactionDto(2L, ExchangeOperation.USD_TO_PLN, 400.0,1200.0, 1L, null, 1L);
-        TransactionDto transactionDto3= new TransactionDto(3L, ExchangeOperation.USD_TO_PLN, 400.0,1200.0, 1L, null, 1L);
-        List<TransactionDto> tractionsDto =List.of(transactionDto3,transactionDto2,transactionDto1) ;
+        TransactionDto transactionDto1 = new TransactionDto(1L, ExchangeOperation.USD_TO_PLN, 400.0, 1200.0, 1L, null, 1L);
+        TransactionDto transactionDto2 = new TransactionDto(2L, ExchangeOperation.USD_TO_PLN, 400.0, 1200.0, 1L, null, 1L);
+        TransactionDto transactionDto3 = new TransactionDto(3L, ExchangeOperation.USD_TO_PLN, 400.0, 1200.0, 1L, null, 1L);
+        List<TransactionDto> tractionsDto = List.of(transactionDto3, transactionDto2, transactionDto1);
 
         when(cartService.getCart(1L)).thenReturn(cart1);
         when(transactionMapper.mapToTransactionsDto(cart1.getTransactions())).thenReturn(tractionsDto);
         //WHEN
-        List<TransactionDto> receviedTransactions = cartControllerFacade.fetchAllTransactionsInCart(1L);
+        List<TransactionDto> receivedTransactions = cartControllerFacade.fetchAllTransactionsInCart(1L);
 
         //THEN
-        assertNotNull(receviedTransactions);
-        assertEquals(3, receviedTransactions.size());
+        assertNotNull(receivedTransactions);
+        assertEquals(3, receivedTransactions.size());
     }
+
 }

@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(
+        name = "User.findUserByUserName",
+        query = "FROM User WHERE userName = :USERNAME "
+)
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -36,7 +41,7 @@ public class User {
     private List<ExchangeOrder> exchangeOrders = new ArrayList<>();
 
     @NotNull
-    @Column(name = "USER_NAME")
+    @Column(name = "USER_NAME", unique = true)
     private String userName;
 
 

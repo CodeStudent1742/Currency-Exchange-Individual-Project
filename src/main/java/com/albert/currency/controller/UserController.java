@@ -62,4 +62,9 @@ public class UserController {
         userService.deleteUser(userId);
         return ResponseEntity.ok().build();
     }
+//    @DeleteMapping
+    public ResponseEntity<Void> deleteUserByUserName(@RequestParam String userName) throws UserNotFoundException {
+        userService.deleteUserByUserName(userName);
+        return ResponseEntity.ok().build();
+    }
 }

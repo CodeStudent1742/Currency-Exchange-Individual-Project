@@ -2,7 +2,9 @@ package com.albert.currency.repository;
 
 import com.albert.currency.domain.User;
 import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,6 +19,8 @@ public interface UserRepository extends CrudRepository<User,Long> {
     @Override
     List<User> findAll();
     void deleteById(Long id);
+    @Query
+    Optional<User> findUserByUserName(@Param("USERNAME") String userName);
 
 
 }

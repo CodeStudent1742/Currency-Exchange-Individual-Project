@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
@@ -146,6 +146,21 @@ public class UserTestSuite {
         cartRepository.deleteAll();
         transactionRepository.deleteAll();
         exchangeOrderRepository.deleteAll();
+    }
+    @Test
+    public void deleteUserByUserName() throws UserNotFoundException {
+        //GIVEN
+        User user1 = new User("user1");
+        userService.saveUser(user1);
+
+
+        //WHEN
+        userService.deleteUserByUserName("user1");
+
+        //THEN
+        assertEquals(0,userRepository.findAll().size());
+
+
     }
 
 }

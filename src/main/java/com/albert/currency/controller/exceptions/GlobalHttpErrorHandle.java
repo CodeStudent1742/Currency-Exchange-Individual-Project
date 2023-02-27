@@ -51,4 +51,8 @@ public class GlobalHttpErrorHandle extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNotFoundException(NoSufficientFundsException exception){
         return new ResponseEntity<>("You do not have enough funds in Account", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(UserAlreadyExistsException exception){
+        return new ResponseEntity<>("User with this userName already exists", HttpStatus.BAD_REQUEST);
+    }
 }

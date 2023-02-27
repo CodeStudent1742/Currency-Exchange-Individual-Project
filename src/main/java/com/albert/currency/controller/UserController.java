@@ -1,5 +1,6 @@
 package com.albert.currency.controller;
 
+import com.albert.currency.controller.exceptions.UserAlreadyExistsException;
 import com.albert.currency.controller.exceptions.UserNotFoundException;
 import com.albert.currency.domain.Transaction;
 import com.albert.currency.domain.User;
@@ -44,9 +45,8 @@ public class UserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createUser(@RequestBody NewUserDto newUserDto) {
-        User user = userMapper.mapToUser(newUserDto);
-        userService.saveUser(user);
+    public ResponseEntity<Void> createUser(@RequestBody NewUserDto newUserDto) throws UserAlreadyExistsException {
+        userService.createUserFromNewUser(userMapper.mapToUser(newUserDto));
         return ResponseEntity.ok().build();
     }
 
@@ -62,7 +62,8 @@ public class UserController {
         userService.deleteUser(userId);
         return ResponseEntity.ok().build();
     }
-//    @DeleteMapping
+
+    @DeleteMapping
     public ResponseEntity<Void> deleteUserByUserName(@RequestParam String userName) throws UserNotFoundException {
         userService.deleteUserByUserName(userName);
         return ResponseEntity.ok().build();

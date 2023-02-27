@@ -1,9 +1,11 @@
 package com.albert.currency.service;
 
+import com.albert.currency.controller.exceptions.UserAlreadyExistsException;
 import com.albert.currency.controller.exceptions.UserNotFoundException;
-import com.albert.currency.domain.ExchangeOrder;
-import com.albert.currency.domain.Transaction;
-import com.albert.currency.domain.User;
+import com.albert.currency.domain.*;
+import com.albert.currency.repository.AccountRepository;
+import com.albert.currency.repository.CartBalanceRepository;
+import com.albert.currency.repository.CartRepository;
 import com.albert.currency.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private final AccountRepository accountRepository;
+    private final CartRepository cartRepository;
 
     private final UserRepository userRepository;
+    private final CartBalanceRepository cartBalanceRepository;
+
+
     public List<Transaction> getAllTransactions(Long userId) throws UserNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         List<Transaction> transactionsInCart = user.getCart().getTransactions();
@@ -44,7 +51,29 @@ public class UserService {
     }
 
     public void deleteUserByUserName(final String userName) throws UserNotFoundException {
-         User user = userRepository.findUserByUserName(userName).orElseThrow(UserNotFoundException::new);
-         userRepository.delete(user);
+        User user = userRepository.findUserByUserName(userName).orElseThrow(UserNotFoundException::new);
+//        cartBalanceRepository.delete(user.getCart().getCartBalance());
+        cartRepository.delete(user.getCart());
+        accountRepository.delete(user.getAccount());
+        userRepository.delete(user);
     }
+
+    public void createUserFromNewUser(final User user) throws UserAlreadyExistsException {
+        if (userRepository.findUserByUserName(user.getUserName()).isEmpty()) {
+            Cart cart = new Cart();
+            Account account = new Account();
+//            CartBalance cartBalance = new CartBalance();
+//            cartBalanceRepository.save(cartBalance);
+//            cart.setCartBalance(cartBalance);
+            cartRepository.save(cart);
+            accountRepository.save(account);
+            cart.setUser(user);
+            account.setUser(user);
+            userRepository.save(user);
+        } else {
+            throw new UserAlreadyExistsException();
+        }
+    }
+
 }
+

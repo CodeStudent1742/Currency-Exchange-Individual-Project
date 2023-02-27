@@ -20,15 +20,15 @@ public class CartBalance {
     private Long cartBalanceId;
 
     @Column(name = "CART_PLN_BALANCE")
-    private BigDecimal balancePLN;
+    private BigDecimal balancePLN = BigDecimal.valueOf(0);
     @Column(name = "CART_EUR_BALANCE")
-    private BigDecimal balanceEUR;
+    private BigDecimal balanceEUR = BigDecimal.valueOf(0);
     @Column(name = "CART_USD_BALANCE")
-    private BigDecimal balanceUSD;
+    private BigDecimal balanceUSD = BigDecimal.valueOf(0);
     @Column(name = "CART_CHF_BALANCE")
-    private BigDecimal balanceCHF;
+    private BigDecimal balanceCHF = BigDecimal.valueOf(0);
     @Column(name = "CART_GBP_BALANCE")
-    private BigDecimal balanceGBP;
+    private BigDecimal balanceGBP = BigDecimal.valueOf(0);
 
     @OneToOne(mappedBy = "cartBalance")
     private Cart cart;

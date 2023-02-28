@@ -76,35 +76,35 @@ public class AccountService {
     private void withdrawProcess(Account account, String currency, Double value) throws CurrencyNotFoundException, ValueOutOfBalanceException {
         switch (currency.toUpperCase()) {
             case "PLN" -> {
-                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) == 1){
+                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) < 0){
                     throw new ValueOutOfBalanceException();
                 }
                 account.setBalancePLN(account.getBalancePLN().subtract(BigDecimal.valueOf(value)));
                 accountRepository.save(account);
             }
             case "EUR" -> {
-                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) == 1){
+                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) < 0){
                     throw new ValueOutOfBalanceException();
                 }
                 account.setBalanceEUR(account.getBalanceEUR().subtract(BigDecimal.valueOf(value)));
                 accountRepository.save(account);
             }
             case "USD" -> {
-                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) == 1){
+                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) < 0){
                     throw new ValueOutOfBalanceException();
                 }
                 account.setBalanceUSD(account.getBalanceUSD().subtract(BigDecimal.valueOf(value)));
                 accountRepository.save(account);
             }
             case "GBP" -> {
-                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) == 1){
+                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) < 0){
                     throw new ValueOutOfBalanceException();
                 }
                 account.setBalanceGBP(account.getBalanceGBP().subtract(BigDecimal.valueOf(value)));
                 accountRepository.save(account);
             }
             case "CHF" -> {
-                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) == 1){
+                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) < 0){
                     throw new ValueOutOfBalanceException();
                 }
                 account.setBalanceCHF(account.getBalanceCHF().subtract(BigDecimal.valueOf(value)))  ;

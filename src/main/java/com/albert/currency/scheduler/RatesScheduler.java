@@ -20,14 +20,15 @@ public class RatesScheduler {
     private final CantorRepository cantorRepository;
 
     @Scheduled(cron = "0 16 8 ? * MON-FRI")
-//   @Scheduled(fixedDelay = 10000)
-    public void getAndSaveNBPRates(){
+//   @Scheduled(fixedDelay = 1000)
+    public void getAndSaveNBPRates() {
         NBPExchangeRate nbpExchangeRate = nbpExchangeRateMapper.mapToNBPExchangeRate(nbpClient.getNBPRates());
         nbpExchangeRateRepository.save(nbpExchangeRate);
     }
+
     @Scheduled(cron = "0 16 8 ? * MON-FRI")
-//   @Scheduled(fixedDelay = 10000)
-    public void changeCantorRates(){
+//   @Scheduled(fixedDelay = 1000)
+    public void changeCantorRates() {
         NBPExchangeRate nbpExchangeRate = nbpExchangeRateMapper.mapToNBPExchangeRate(nbpClient.getNBPRates());
         Cantor cantor = new Cantor(nbpExchangeRate);
         cantorRepository.save(cantor);

@@ -34,7 +34,7 @@ public class Transaction {
     @JoinColumn(name = "EXCHANGE_ORDER_ID")
     private ExchangeOrder exchangeOrder;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CANTOR_ID")
     Cantor cantor;
 

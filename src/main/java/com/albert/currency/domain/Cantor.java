@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -40,8 +42,13 @@ public class Cantor {
     @Column( name ="SELLING_CHF")
     private Double sellingRateCHF;
 
-    @OneToOne(mappedBy = "cantor")
-    private Transaction transaction;
+
+    @OneToMany(
+            targetEntity = Transaction.class,
+            mappedBy = "cantor",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private List<Transaction> transactions;
 
     public Cantor(NBPExchangeRate nbpExchangeRate){
         calculateCantorRates(nbpExchangeRate);

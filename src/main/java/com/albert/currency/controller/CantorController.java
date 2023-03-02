@@ -3,6 +3,8 @@ package com.albert.currency.controller;
 import com.albert.currency.client.NBPClient;
 import com.albert.currency.domain.Cantor;
 import com.albert.currency.domain.NBPExchangeRate;
+import com.albert.currency.domain.dto.CantorDto;
+import com.albert.currency.mapper.CantorMapper;
 import com.albert.currency.mapper.NBPExchangeRateMapper;
 import com.albert.currency.service.CantorService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.time.LocalTime;
 @RequestMapping("v1/cantor")
 public class CantorController {
 
+    private final CantorMapper cantorMapper;
     private final CantorService cantorService;
     private final NBPClient nbpClient;
     private final NBPExchangeRateMapper nbpExchangeRateMapper;
@@ -29,15 +32,16 @@ public class CantorController {
     private final LocalTime now = LocalTime.now();
 
     @GetMapping(value = "/all")
-    public ResponseEntity<Cantor> getCantor() {
+    public ResponseEntity<CantorDto> getCantor() {
         if (LocalDate.now().getDayOfWeek().getValue() >= 1 && LocalDate.now().getDayOfWeek().getValue() <= 5 &&
                 now.isAfter(startTime) && now.isBefore(endTime) || cantorService.getCantorRates() == null) {
             NBPExchangeRate nbpExchangeRate = nbpExchangeRateMapper.mapToNBPExchangeRate(nbpClient.getNBPRates());
             Cantor cantor = new Cantor(nbpExchangeRate);
-            return ResponseEntity.ok(cantor);
+            cantorService.saveCantor(cantor);
+            return ResponseEntity.ok(cantorMapper.mapToCantorDto(cantor));
         } else {
             Cantor cantor = cantorService.getCantorRates();
-            return ResponseEntity.ok(cantor);
+            return ResponseEntity.ok(cantorMapper.mapToCantorDto(cantor));
         }
     }
 

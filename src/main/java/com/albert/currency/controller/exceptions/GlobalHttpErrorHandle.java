@@ -55,4 +55,8 @@ public class GlobalHttpErrorHandle extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNotFoundException(UserAlreadyExistsException exception){
         return new ResponseEntity<>("User with this userName already exists", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(CantorNotFoundException exception){
+        return new ResponseEntity<>("Cantor with this id do not exist", HttpStatus.BAD_REQUEST);
+    }
 }

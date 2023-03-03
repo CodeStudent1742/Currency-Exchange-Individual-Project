@@ -2,14 +2,18 @@ package com.albert.currency.controller;
 
 import com.albert.currency.controller.exceptions.UserAlreadyExistsException;
 import com.albert.currency.controller.exceptions.UserNotFoundException;
+import com.albert.currency.domain.ExchangeOrder;
 import com.albert.currency.domain.Transaction;
 import com.albert.currency.domain.User;
+import com.albert.currency.domain.dto.ExchangeOrderDto;
 import com.albert.currency.domain.dto.NewUserDto;
 import com.albert.currency.domain.dto.TransactionDto;
 import com.albert.currency.domain.dto.UserDto;
+import com.albert.currency.mapper.ExchangeOrderMapper;
 import com.albert.currency.mapper.TransactionMapper;
 import com.albert.currency.mapper.UserMapper;
-import com.albert.currency.service.UserService;
+import com.albert.currency.repository.UserRepository;
+import com.albert.currency.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +26,15 @@ import java.util.List;
 @RequestMapping("v1/user")
 public class UserController {
     private final UserService userService;
+    private final CartBalanceService cartBalanceService;
+    private final CartService cartService;
+    private final AccountService accountService;
+    private final ExchangeOrderService exchangeOrderService;
+    private final TransactionService transactionService;
+    private final ExchangeOrderMapper exchangeOrderMapper;
     private final UserMapper userMapper;
     private final TransactionMapper transactionMapper;
+
 
 
     @GetMapping
@@ -43,6 +54,11 @@ public class UserController {
         List<Transaction> allTransactions = userService.getAllTransactions(userId);
         return ResponseEntity.ok(transactionMapper.mapToTransactionsDto(allTransactions));
     }
+    @GetMapping(value = "{userId}/exchangeOrders")
+    public ResponseEntity<List<ExchangeOrderDto>> getUserExchangeOrders(@PathVariable Long userId) throws UserNotFoundException {
+        List<ExchangeOrder> allExchangeOrders = userService.getAllOrders(userId);
+        return ResponseEntity.ok(exchangeOrderMapper.mapToExchangeOrdersDto(allExchangeOrders));
+    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createUser(@RequestBody NewUserDto newUserDto) throws UserAlreadyExistsException {
@@ -58,7 +74,13 @@ public class UserController {
     }
 
     @DeleteMapping(value = "{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long userId) throws UserNotFoundException {
+        User user = userService.getUser(userId);
+        cartBalanceService.deleteCartBalance(user.getCart().getCartBalance());
+        cartService.deleteCart(user.getCart().getCartId());
+        accountService.delete(user.getAccount().getAccountId());
+        transactionService.deleteTransactions(exchangeOrderMapper.mapToTransactionsId(userService.getAllTransactions(userId)));
+        exchangeOrderService.deleteAllUserExchangeOrders(userMapper.mapToExchangeOrderIds(user.getExchangeOrders()));
         userService.deleteUser(userId);
         return ResponseEntity.ok().build();
     }

@@ -13,5 +13,6 @@ public class CartBalanceService {
     public void saveCartBalance(CartBalance cartbalance) {
         cartBalanceRepository.save(cartbalance);
     }
+    public void deleteCartBalance(CartBalance cartBalance){cartBalanceRepository.delete(cartBalance);}
 
 }

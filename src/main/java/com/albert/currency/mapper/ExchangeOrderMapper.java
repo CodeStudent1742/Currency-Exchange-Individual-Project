@@ -33,7 +33,7 @@ public class ExchangeOrderMapper {
         );
     }
 
-    private List<Long> mapToTransactionsId(List<Transaction> orderTransactions) {
+    public List<Long> mapToTransactionsId(List<Transaction> orderTransactions) {
         return orderTransactions.stream()
                 .map(Transaction::getTransactionId)
                 .collect(Collectors.toList());

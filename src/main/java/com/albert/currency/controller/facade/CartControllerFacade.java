@@ -126,4 +126,11 @@ public class CartControllerFacade {
         }
         return true;
     }
+    public void deleteTransactionFromCart(Long cartId, Long transactionId) throws CartNotFoundException, TransactionNotFoundException {
+        Cart cart = cartService.getCart(cartId);
+        cart.getTransactions().remove(transactionService.getTransaction(transactionId));
+        cartService.saveCart(cart);
+        transactionService.deleteTransaction(transactionId);
+        LOGGER.info("Transaction with id " +transactionId + " has been deleted from the Cart with id " +cartId+ " .");
+    }
 }

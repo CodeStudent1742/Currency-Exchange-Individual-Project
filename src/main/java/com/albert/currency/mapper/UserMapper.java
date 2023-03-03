@@ -31,7 +31,7 @@ public class UserMapper {
         );
     }
 
-    private List<Long> mapToExchangeOrderIds(List<ExchangeOrder> exchangeOrders) {
+    public List<Long> mapToExchangeOrderIds(List<ExchangeOrder> exchangeOrders) {
         return exchangeOrders.stream()
                 .map(ExchangeOrder::getExchangeOrderId)
                 .collect(Collectors.toList());

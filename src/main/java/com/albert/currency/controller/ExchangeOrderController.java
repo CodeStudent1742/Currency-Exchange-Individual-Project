@@ -29,7 +29,6 @@ public class ExchangeOrderController {
         return ResponseEntity.ok(exchangeOrderMapper.mapToExchangeOrdersDto(exchangeOrders));
 
     }
-
     @GetMapping(value = "exchangeOrderId")
     public ResponseEntity<ExchangeOrderDto> getExchangeOrder(Long exchangeOrderId) throws ExchangeOrderNotFoundException {
         ExchangeOrder exchangeOrder = exchangeOrderService.getExchangeOrderById(exchangeOrderId);

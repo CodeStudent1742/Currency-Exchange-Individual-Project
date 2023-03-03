@@ -33,7 +33,7 @@ public class Cart {
             fetch = FetchType.EAGER)
     private List<Transaction> transactions = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name= "CART_BALANCE_ID")
     private CartBalance cartBalance;
 

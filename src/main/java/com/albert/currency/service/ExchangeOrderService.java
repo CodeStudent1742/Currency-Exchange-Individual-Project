@@ -29,4 +29,7 @@ public class ExchangeOrderService {
     public void delete(Long exchangeOrderId) {
         exchangeOrderRepository.deleteById(exchangeOrderId);
     }
+    public void deleteAllUserExchangeOrders(List<Long> exchangeOrdersId){
+        exchangeOrderRepository.deleteAllById(exchangeOrdersId);
+    }
 }

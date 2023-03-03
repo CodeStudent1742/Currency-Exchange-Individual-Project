@@ -62,9 +62,9 @@ public class UserService {
         if (userRepository.findUserByUserName(user.getUserName()).isEmpty()) {
             Cart cart = new Cart();
             Account account = new Account();
-//            CartBalance cartBalance = new CartBalance();
-//            cartBalanceRepository.save(cartBalance);
-//            cart.setCartBalance(cartBalance);
+            CartBalance cartBalance = new CartBalance();
+            cartBalanceRepository.save(cartBalance);
+            cart.setCartBalance(cartBalance);
             cartRepository.save(cart);
             accountRepository.save(account);
             cart.setUser(user);
@@ -75,5 +75,9 @@ public class UserService {
         }
     }
 
+    public List<ExchangeOrder> getAllOrders(Long userId) throws UserNotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        return user.getExchangeOrders();
+    }
 }
 

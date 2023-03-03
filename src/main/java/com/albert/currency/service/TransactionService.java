@@ -28,4 +28,8 @@ public class TransactionService {
     public void deleteTransaction(Long transactionId) {
         transactionRepository.deleteById(transactionId);
     }
+
+    public void deleteTransactions(List<Long> transactionsId) {
+        transactionRepository.deleteAllById(transactionsId);
+    }
 }

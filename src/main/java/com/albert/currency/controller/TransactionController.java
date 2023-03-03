@@ -1,5 +1,6 @@
 package com.albert.currency.controller;
 
+import com.albert.currency.controller.exceptions.CantorNotFoundException;
 import com.albert.currency.controller.exceptions.CartNotFoundException;
 import com.albert.currency.controller.exceptions.TransactionNotFoundException;
 import com.albert.currency.domain.Transaction;
@@ -40,6 +41,12 @@ public class TransactionController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> createTransaction(@RequestBody TransactionDto transactionDto) throws CartNotFoundException {
         Transaction transaction = transactionMapper.mapToTransaction(transactionDto);
+        transactionService.saveTransaction(transaction);
+        return ResponseEntity.ok().build();
+    }
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> updateTransaction(@RequestBody TransactionDto transactionDto) throws CartNotFoundException, CantorNotFoundException {
+       Transaction transaction= transactionMapper.mapToUpdateTransaction(transactionDto);
         transactionService.saveTransaction(transaction);
         return ResponseEntity.ok().build();
     }

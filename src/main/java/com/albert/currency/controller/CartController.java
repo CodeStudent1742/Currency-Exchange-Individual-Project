@@ -51,5 +51,9 @@ public class CartController {
         cartControllerFacade.makeOrderFromCart(cartId);
         return ResponseEntity.ok().build();
     }
-
+    @PutMapping(value = "{cartId}/delete/{transactionId}")
+    public ResponseEntity<Void> deleteTransactionFromCart(@PathVariable Long cartId, @PathVariable Long transactionId) throws CartNotFoundException, TransactionNotFoundException {
+        cartControllerFacade.deleteTransactionFromCart(cartId, transactionId);
+        return ResponseEntity.ok().build();
+    }
 }

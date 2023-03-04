@@ -84,28 +84,28 @@ public class AccountService {
                 accountRepository.save(account);
             }
             case "EUR" -> {
-                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) < 0){
+                if (account.getBalanceEUR().compareTo(BigDecimal.valueOf(value)) < 0){
                     throw new ValueOutOfBalanceException();
                 }
                 account.setBalanceEUR(account.getBalanceEUR().subtract(BigDecimal.valueOf(value)));
                 accountRepository.save(account);
             }
             case "USD" -> {
-                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) < 0){
+                if (account.getBalanceUSD().compareTo(BigDecimal.valueOf(value)) < 0){
                     throw new ValueOutOfBalanceException();
                 }
                 account.setBalanceUSD(account.getBalanceUSD().subtract(BigDecimal.valueOf(value)));
                 accountRepository.save(account);
             }
             case "GBP" -> {
-                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) < 0){
+                if (account.getBalanceGBP().compareTo(BigDecimal.valueOf(value)) < 0){
                     throw new ValueOutOfBalanceException();
                 }
                 account.setBalanceGBP(account.getBalanceGBP().subtract(BigDecimal.valueOf(value)));
                 accountRepository.save(account);
             }
             case "CHF" -> {
-                if (account.getBalancePLN().compareTo(BigDecimal.valueOf(value)) < 0){
+                if (account.getBalanceCHF().compareTo(BigDecimal.valueOf(value)) < 0){
                     throw new ValueOutOfBalanceException();
                 }
                 account.setBalanceCHF(account.getBalanceCHF().subtract(BigDecimal.valueOf(value)))  ;

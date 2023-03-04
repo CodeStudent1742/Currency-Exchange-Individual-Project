@@ -83,11 +83,11 @@ public class AccountTestSuite {
         Account testedAccount = accountService.getAccountById(id);
         accountService.putIntoAccount(id,"EUR",1000.0);
         accountService.save(testedAccount);
-//        System.out.println("Account EUR balance" + testedAccount.getBalanceEUR());
+        System.out.println("Account EUR balance" + testedAccount.getBalanceEUR());
 
         //WHEN
         accountService.withdrawFromAccount(id,"EUR",500.0);
-//        System.out.println("Account EUR balance" + testedAccount.getBalanceEUR());
+        System.out.println("Account EUR balance" + testedAccount.getBalanceEUR());
 
         //THEN
         assertEquals(500, testedAccount.getBalanceEUR().doubleValue());

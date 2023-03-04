@@ -113,11 +113,12 @@ public class ExchangeOrderMapperTestSuite {
         assertEquals(3,exchangeOrder.getOrderTransactions().size());
 
         //CLEAN UP
+        cantorRepository.deleteAll();
+        transactionRepository.deleteAll();
         exchangeOrderRepository.deleteAll();
-        userRepository.deleteAll();
         accountRepository.deleteAll();
         cartRepository.deleteAll();
-        transactionRepository.deleteAll();
+        userRepository.deleteAll();
 
     }
 }

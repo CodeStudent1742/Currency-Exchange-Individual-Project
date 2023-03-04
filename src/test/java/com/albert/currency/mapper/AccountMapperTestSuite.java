@@ -6,9 +6,7 @@ import com.albert.currency.domain.Cart;
 import com.albert.currency.domain.User;
 import com.albert.currency.domain.dto.AccountDto;
 import com.albert.currency.domain.dto.NewAccountDto;
-import com.albert.currency.repository.AccountRepository;
-import com.albert.currency.repository.CartRepository;
-import com.albert.currency.repository.UserRepository;
+import com.albert.currency.repository.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +27,10 @@ public class AccountMapperTestSuite {
     private AccountRepository accountRepository;
     @Autowired
     CartRepository cartRepository;
+    @Autowired
+    private TransactionRepository transactionRepository;
+    @Autowired
+    private ExchangeOrderRepository exchangeOrderRepository;
 
     @Test
     public void testMapToAccount() throws UserNotFoundException {
@@ -49,9 +51,11 @@ public class AccountMapperTestSuite {
         //THEN
         assertEquals(id, account.getUser().getUserId());
         //CLEAN UP
-        userRepository.deleteAll();
+        transactionRepository.deleteAll();
+        exchangeOrderRepository.deleteAll();
         accountRepository.deleteAll();
         cartRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test

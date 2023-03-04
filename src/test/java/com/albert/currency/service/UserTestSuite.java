@@ -147,11 +147,11 @@ public class UserTestSuite {
         assertEquals(3, transactions.size());
 
         //CLEAN UP
-        userRepository.deleteAll();
-        accountRepository.deleteAll();
-        cartRepository.deleteAll();
         transactionRepository.deleteAll();
         exchangeOrderRepository.deleteAll();
+        accountRepository.deleteAll();
+        cartRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test

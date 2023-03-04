@@ -100,10 +100,10 @@ public class TransactionMapperTestSuite {
         assertEquals(cantorId,transaction.getCantor().getCantorRatesId());
 
         //CLEAN UP
-        userRepository.deleteAll();
+        transactionRepository.deleteAll();
         accountRepository.deleteAll();
         cartRepository.deleteAll();
-        transactionRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
 }

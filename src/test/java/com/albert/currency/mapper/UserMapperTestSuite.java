@@ -112,11 +112,12 @@ public class UserMapperTestSuite {
         assertEquals(2, exchangeOrderIds.size());
 
         //CLEAN UP
-        userRepository.deleteAll();
-        accountRepository.deleteAll();
-        exchangeOrderRepository.deleteAll();
+        cantorRepository.deleteAll();
         transactionRepository.deleteAll();
+        exchangeOrderRepository.deleteAll();
+        accountRepository.deleteAll();
         cartRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
 }

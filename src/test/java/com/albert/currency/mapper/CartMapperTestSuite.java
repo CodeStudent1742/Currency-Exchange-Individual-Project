@@ -91,9 +91,9 @@ public class CartMapperTestSuite {
         //THEN
         assertNotEquals(null,cartTested.getUser());
         //CLEAN UP
-        userRepository.deleteAll();
         transactionRepository.deleteAll();
         cartRepository.deleteAll();
         cartBalanceRepository.deleteAll();
+        userRepository.deleteAll();
     }
 }

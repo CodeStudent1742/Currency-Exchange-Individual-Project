@@ -4,7 +4,8 @@ import com.albert.currency.controller.exceptions.AccountNotFoundException;
 import com.albert.currency.controller.exceptions.CurrencyNotFoundException;
 import com.albert.currency.controller.exceptions.ValueOutOfBalanceException;
 import com.albert.currency.domain.Account;
-import com.albert.currency.domain.CartBalance;
+import com.albert.currency.domain.Cart;
+import com.albert.currency.domain.Transaction;
 import com.albert.currency.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -113,12 +114,21 @@ public class AccountService {
             default -> throw new CurrencyNotFoundException();
         }
     }
-    public void subtractCartBalanceFromAccountBalance(Account account, CartBalance cartBalance) {
-        account.setBalancePLN(account.getBalancePLN().subtract(cartBalance.getBalancePLN()));
-        account.setBalanceEUR(account.getBalanceEUR().subtract(cartBalance.getBalanceEUR()));
-        account.setBalanceUSD(account.getBalanceUSD().subtract(cartBalance.getBalanceUSD()));
-        account.setBalanceCHF(account.getBalanceCHF().subtract(cartBalance.getBalanceCHF()));
-        account.setBalanceGBP(account.getBalanceGBP().subtract(cartBalance.getBalanceGBP()));
+    public void exchangeOperationAccountBalanceChange(Account account, Cart cart) {
+        account.setBalancePLN(account.getBalancePLN().subtract(cart.getCartBalance().getBalancePLN()));
+        account.setBalanceEUR(account.getBalanceEUR().subtract(cart.getCartBalance().getBalanceEUR()));
+        account.setBalanceUSD(account.getBalanceUSD().subtract(cart.getCartBalance().getBalanceUSD()));
+        account.setBalanceCHF(account.getBalanceCHF().subtract(cart.getCartBalance().getBalanceCHF()));
+        account.setBalanceGBP(account.getBalanceGBP().subtract(cart.getCartBalance().getBalanceGBP()));
+        for(Transaction transaction : cart.getTransactions()){
+            switch(transaction.getExchangeOperation()){
+                case PLN_TO_EUR -> account.setBalanceEUR(account.getBalanceEUR().add(BigDecimal.valueOf(transaction.getTransactionVolume())));
+                case EUR_TO_PLN, CHF_TO_PLN, USD_TO_PLN, GBP_TO_PLN -> account.setBalancePLN(account.getBalancePLN().add(BigDecimal.valueOf(transaction.getTransactionVolume())));
+                case PLN_TO_USD -> account.setBalanceUSD(account.getBalanceUSD().add(BigDecimal.valueOf(transaction.getTransactionVolume())));
+                case PLN_TO_CHF -> account.setBalanceCHF(account.getBalanceCHF().add(BigDecimal.valueOf(transaction.getTransactionVolume())));
+                case PLN_TO_GBP -> account.setBalanceGBP(account.getBalanceGBP().add(BigDecimal.valueOf(transaction.getTransactionVolume())));
+            }
+        }
         accountRepository.save(account);
     }
 }

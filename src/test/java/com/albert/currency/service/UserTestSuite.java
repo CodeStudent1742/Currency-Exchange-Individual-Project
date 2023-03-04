@@ -1,5 +1,6 @@
 package com.albert.currency.service;
 
+import com.albert.currency.controller.exceptions.CartBalanceNotFoundException;
 import com.albert.currency.controller.exceptions.UserNotFoundException;
 import com.albert.currency.domain.*;
 import com.albert.currency.repository.*;
@@ -22,6 +23,8 @@ public class UserTestSuite {
     private AccountService accountService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private CartBalanceService cartBalanceService;
     @Autowired
     private ExchangeOrderService exchangeOrderService;
     @Autowired
@@ -48,11 +51,12 @@ public class UserTestSuite {
         User userById1 = userService.getUser(id1);
 
         //THEN
-        assertEquals("user1",userById1.getUserName());
+        assertEquals("user1", userById1.getUserName());
 
         //CLEAN UP
         userService.deleteUser(id1);
     }
+
     @Test
     public void testUpdateUser() throws UserNotFoundException {
         //GIVEN
@@ -66,16 +70,17 @@ public class UserTestSuite {
         userService.saveUser(userById1);
 
         //THEN
-        assertEquals("userNameChanged",userById1.getUserName());
+        assertEquals("userNameChanged", userById1.getUserName());
 
         //CLEAN UP
         userService.deleteUser(id1);
     }
+
     @Test
     public void testGetAllUsers() {
         //GIVEN
         Account account1 = new Account();
-        Account account2= new Account();
+        Account account2 = new Account();
         Account account3 = new Account();
         accountService.save(account1);
         accountService.save(account2);
@@ -103,13 +108,14 @@ public class UserTestSuite {
         List<User> users = userService.getAllUsers();
 
         //THEN
-        assertEquals(3,users.size());
+        assertEquals(3, users.size());
 
         //CLEAN UP
         userRepository.deleteAll();
         accountRepository.deleteAll();
         cartRepository.deleteAll();
     }
+
     @Test
     public void testGetUserTransactions() throws UserNotFoundException {
         //GIVEN
@@ -122,7 +128,7 @@ public class UserTestSuite {
         transactionService.saveTransaction(transaction2);
         transactionService.saveTransaction(transaction3);
         Cart cart1 = new Cart();
-        cart1.setTransactions(List.of(transaction1,transaction2));
+        cart1.setTransactions(List.of(transaction1, transaction2));
         cartService.saveCart(cart1);
         ExchangeOrder exchangeOrder1 = new ExchangeOrder();
         exchangeOrder1.setOrderTransactions(List.of(transaction3));
@@ -138,7 +144,7 @@ public class UserTestSuite {
         List<Transaction> transactions = userService.getAllTransactions(id1);
 
         //THEN
-        assertEquals(3,transactions.size());
+        assertEquals(3, transactions.size());
 
         //CLEAN UP
         userRepository.deleteAll();
@@ -147,19 +153,28 @@ public class UserTestSuite {
         transactionRepository.deleteAll();
         exchangeOrderRepository.deleteAll();
     }
-    @Test
-    public void deleteUserByUserName() throws UserNotFoundException {
-        //GIVEN
-        User user1 = new User("user1");
-        userService.saveUser(user1);
 
+    @Test
+    public void deleteUserByUserName() throws UserNotFoundException, CartBalanceNotFoundException {
+        //GIVEN
+        Account account1 = new Account();;
+        accountService.save(account1);
+        CartBalance cartBalance = new CartBalance();
+        cartBalanceService.saveCartBalance(cartBalance);
+        Cart cart1 = new Cart();
+        cart1.setCartBalance(cartBalance);
+        cartService.saveCart(cart1);
+        User user1 = new User("user1");
+        user1.setAccount(account1);
+        user1.setCart(cart1);
+        userService.saveUser(user1);
+        Long id = user1.getUserId();
 
         //WHEN
         userService.deleteUserByUserName("user1");
 
         //THEN
-        assertEquals(0,userRepository.findAll().size());
-
+        assertThrows(UserNotFoundException.class, () -> userService.getUser(id));
 
     }
 

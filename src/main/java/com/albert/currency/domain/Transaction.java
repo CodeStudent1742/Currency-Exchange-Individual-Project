@@ -72,22 +72,22 @@ public class Transaction {
                 value = transactionVolume * cantor.getSellingRateEUR();
             }
             case EUR_TO_PLN -> {
-                value = transactionVolume * cantor.getPurchaseRateEUR();
+                value = transactionVolume * 1/cantor.getPurchaseRateEUR();
             }
             case PLN_TO_USD -> {
                 value = transactionVolume * cantor.getSellingRateUSD();
             }
             case USD_TO_PLN -> {
-                value = transactionVolume * cantor.getPurchaseRateUSD();
+                value = transactionVolume * 1/cantor.getPurchaseRateUSD();
             }
             case CHF_TO_PLN -> {
-                value = transactionVolume * cantor.getPurchaseRateCHF();
+                value = transactionVolume * 1/cantor.getPurchaseRateCHF();
             }
             case PLN_TO_CHF -> {
                 value = transactionVolume * cantor.getSellingRateCHF();
             }
             case GBP_TO_PLN -> {
-                value = transactionVolume * cantor.getPurchaseRateGBP();
+                value = transactionVolume * 1/cantor.getPurchaseRateGBP();
             }
             case PLN_TO_GBP -> {
                 value = transactionVolume * cantor.getSellingRateGBP();

@@ -41,9 +41,9 @@ public class CartController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping(value = "{cartId}/{transactionId}")
-    public ResponseEntity<Void> addTransactionToCart(@PathVariable Long cartId, @PathVariable Long transactionId) throws CartNotFoundException, TransactionNotFoundException {
-        cartControllerFacade.appendTransactionToCart(cartId, transactionId);
+    @PutMapping(value = "{cartId}")
+    public ResponseEntity<Void> addTransactionToCart(@PathVariable Long cartId, @RequestBody TransactionDto transaction) throws CartNotFoundException, TransactionNotFoundException {
+        cartControllerFacade.appendTransactionToCart(cartId, transaction);
         return ResponseEntity.ok().build();
     }
     @PostMapping(value = "order/{cartId}")

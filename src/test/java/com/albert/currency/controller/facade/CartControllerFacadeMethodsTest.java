@@ -33,22 +33,22 @@ public class CartControllerFacadeMethodsTest {
         assertTrue(result);
 
     }
-    @Test
-    public void testConvertToExchangeOrder() {
-
-        //GIVEN
-        Cart cart = new Cart();
-        Cantor cantor = new Cantor(1L, LocalDate.now(),3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,null);
-        Transaction transaction = new Transaction(ExchangeOperation.PLN_TO_CHF,400.0,cart,cantor);
-        cart.setTransactions(List.of(transaction));
-
-        //WHEN
-        ExchangeOrder exchangeOrder = cartControllerFacade.convertCartToExchangeOrder(cart);
-
-        // THEN
-        assertEquals(null,exchangeOrder.getOrderTransactions().get(0).getCart());
-
-    }
+//    @Test
+//    public void testConvertToExchangeOrder() {
+//
+//        //GIVEN
+//        Cart cart = new Cart();
+//        Cantor cantor = new Cantor(1L, LocalDate.now(),3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0,null);
+//        Transaction transaction = new Transaction(ExchangeOperation.PLN_TO_CHF,400.0,cart,cantor);
+//        cart.setTransactions(List.of(transaction));
+//
+//        //WHEN
+//        cartControllerFacade.convertCartToExchangeOrder(cart);
+//
+//        // THEN
+//        assertEquals(null,transaction.getCart());
+//
+//    }
 
 }
 

@@ -1,7 +1,9 @@
 package com.albert.currency.controller;
 
+import com.albert.currency.controller.exceptions.CartBalanceNotFoundException;
 import com.albert.currency.controller.exceptions.UserAlreadyExistsException;
 import com.albert.currency.controller.exceptions.UserNotFoundException;
+import com.albert.currency.domain.CartBalance;
 import com.albert.currency.domain.ExchangeOrder;
 import com.albert.currency.domain.Transaction;
 import com.albert.currency.domain.User;
@@ -12,7 +14,6 @@ import com.albert.currency.domain.dto.UserDto;
 import com.albert.currency.mapper.ExchangeOrderMapper;
 import com.albert.currency.mapper.TransactionMapper;
 import com.albert.currency.mapper.UserMapper;
-import com.albert.currency.repository.UserRepository;
 import com.albert.currency.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -76,8 +77,9 @@ public class UserController {
     @DeleteMapping(value = "{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long userId) throws UserNotFoundException {
         User user = userService.getUser(userId);
-        cartBalanceService.deleteCartBalance(user.getCart().getCartBalance());
+        CartBalance cartBalance = user.getCart().getCartBalance();
         cartService.deleteCart(user.getCart().getCartId());
+        cartBalanceService.deleteCartBalance(cartBalance);
         accountService.delete(user.getAccount().getAccountId());
         transactionService.deleteTransactions(exchangeOrderMapper.mapToTransactionsId(userService.getAllTransactions(userId)));
         exchangeOrderService.deleteAllUserExchangeOrders(userMapper.mapToExchangeOrderIds(user.getExchangeOrders()));
@@ -86,7 +88,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteUserByUserName(@RequestParam String userName) throws UserNotFoundException {
+    public ResponseEntity<Void> deleteUserByUserName(@RequestParam String userName) throws UserNotFoundException, CartBalanceNotFoundException {
         userService.deleteUserByUserName(userName);
         return ResponseEntity.ok().build();
     }

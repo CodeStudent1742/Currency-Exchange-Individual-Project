@@ -59,4 +59,8 @@ public class GlobalHttpErrorHandle extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNotFoundException(CantorNotFoundException exception){
         return new ResponseEntity<>("Cantor with this id do not exist", HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler
+    public ResponseEntity<Object> handleNotFoundException(CartBalanceNotFoundException exception){
+        return new ResponseEntity<>("Cantor with this id do not exist", HttpStatus.BAD_REQUEST);
+    }
 }

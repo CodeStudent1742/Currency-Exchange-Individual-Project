@@ -48,7 +48,7 @@ public class CartControllerFacade {
     }
 
 
-    public void deleteCartById( Long cartId) {
+    public void deleteCartById(Long cartId) {
         cartService.deleteCart(cartId);
         LOGGER.info("Cart deleted");
     }
@@ -59,11 +59,13 @@ public class CartControllerFacade {
         LOGGER.info("Cart saved");
     }
 
-    public void appendTransactionToCart(Long cartId, Long transactionId) throws CartNotFoundException, TransactionNotFoundException {
+    public void appendTransactionToCart(Long cartId, TransactionDto transactionDto) throws CartNotFoundException {
         Cart cart = cartService.getCart(cartId);
-        cart.getTransactions().add(transactionService.getTransaction(transactionId));
+        Transaction transaction = transactionMapper.mapToTransaction(transactionDto);
+        transactionService.saveTransaction(transaction);
+        cart.getTransactions().add(transaction);
         cartService.saveCart(cart);
-        LOGGER.info("Transaction with id " +transactionId + " has been added to the Cart with id " +cartId+ " .");
+        LOGGER.info("Transaction has been added to the Cart with id " + cartId + " .");
     }
 
     public void makeOrderFromCart(Long cartId) throws CartNotFoundException, NoProductsInCartException, NoSufficientFundsException {
@@ -74,63 +76,65 @@ public class CartControllerFacade {
         if (cart.getTransactions().isEmpty()) {
             LOGGER.error("No products in Cart found to make order");
             throw new NoProductsInCartException();
-        }
-        if (isSufficientFunds(cartBalance,account)) {
+        } else if (isSufficientFunds(cartBalance, account)) {
             cartBalance.calculateCartBalance();
-            accountService.subtractCartBalanceFromAccountBalance(account,cartBalance);
+            accountService.exchangeOperationAccountBalanceChange(account, cart);
             cartBalance.clearBalance();
             cartBalanceService.saveCartBalance(cartBalance);
-            ExchangeOrder exchangeOrder = convertCartToExchangeOrder(cart);
-            exchangeOrderService.save(exchangeOrder);
-            cart.setTransactions(new ArrayList<>());
-            cartService.saveCart(cart);
+            convertCartToExchangeOrder(cart);
             LOGGER.info("Order made from Cart, operation saved");
         } else {
             LOGGER.error("No enough founds to make Order");
             throw new NoSufficientFundsException();
         }
     }
-    public ExchangeOrder convertCartToExchangeOrder(Cart cart) {
-        List<Transaction> transactions = new ArrayList<>(cart.getTransactions());
-        for (Transaction transaction : transactions) {
-            transaction.setCart(null);
-        }
-        return new ExchangeOrder(
+
+    public void convertCartToExchangeOrder(Cart cart) {
+        ExchangeOrder exchangeOrder = new ExchangeOrder(
                 LocalDate.now(),
                 ExchangeStatus.DONE,
                 cart.getUser(),
-                transactions
+                new ArrayList<>()
         );
+        exchangeOrderService.save(exchangeOrder);
+        for (Transaction transaction : cart.getTransactions()) {
+            exchangeOrder.getOrderTransactions().add(transaction);
+            transaction.setExchangeOrder(exchangeOrder);
+            transaction.setCart(null);
+            transactionService.saveTransaction(transaction);
+        }
+
+        exchangeOrderService.save(exchangeOrder);
+        cart.setTransactions(new ArrayList<>());
+        cartService.saveCart(cart);
     }
+
     public boolean isSufficientFunds(CartBalance cartBalance, Account account) {
-        System.out.println("In method");
         if (cartBalance.getBalancePLN().compareTo(account.getBalancePLN()) > 0) {
-            System.out.println("Result PLN is: " + cartBalance.getBalancePLN().compareTo(account.getBalancePLN()));
             return false;
         }
         if (cartBalance.getBalanceEUR().compareTo(account.getBalanceEUR()) > 0) {
-            System.out.println("Result EUR is: " +cartBalance.getBalanceEUR().compareTo(account.getBalanceEUR()));
             return false;
         }
         if (cartBalance.getBalanceUSD().compareTo(account.getBalanceUSD()) > 0) {
-            System.out.println("Result USD is: " + cartBalance.getBalanceUSD().compareTo(account.getBalanceUSD()));
             return false;
         }
         if (cartBalance.getBalanceCHF().compareTo(account.getBalanceCHF()) > 0) {
-            System.out.println("Result CHF is: " + cartBalance.getBalanceCHF().compareTo(account.getBalanceCHF()));
             return false;
         }
         if (cartBalance.getBalanceGBP().compareTo(account.getBalanceGBP()) > 0) {
-            System.out.println("Result GBP is: " + cartBalance.getBalanceGBP().compareTo(account.getBalanceGBP()));
             return false;
         }
         return true;
     }
+
     public void deleteTransactionFromCart(Long cartId, Long transactionId) throws CartNotFoundException, TransactionNotFoundException {
         Cart cart = cartService.getCart(cartId);
         cart.getTransactions().remove(transactionService.getTransaction(transactionId));
+        transactionService.getTransaction(transactionId).setCart(null);
+        transactionService.saveTransaction(transactionService.getTransaction(transactionId));
         cartService.saveCart(cart);
         transactionService.deleteTransaction(transactionId);
-        LOGGER.info("Transaction with id " +transactionId + " has been deleted from the Cart with id " +cartId+ " .");
+        LOGGER.info("Transaction with id " + transactionId + " has been deleted from the Cart with id " + cartId + " .");
     }
 }

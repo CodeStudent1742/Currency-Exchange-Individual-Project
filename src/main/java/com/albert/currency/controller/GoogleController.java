@@ -18,10 +18,14 @@ public class GoogleController {
 
     //For "manual" implementation testing only
     @GetMapping("/cantor/nearby")
-    public void getNearbyCantors() {
+    public void getNearbyCantors()  {
         List<GoogleNearbyDto> nearbyCantor = googleClient.getNearbyCantors();
         for(GoogleNearbyDto cantor: nearbyCantor){
             System.out.println(cantor);
         }
+    }
+    @GetMapping("cantor/nearby/KRK/mainSquare")
+    public List<GoogleNearbyDto> getCantorsNearByKrakowMainSquare(){
+        return  googleClient.getNearbyCantors();
     }
 }

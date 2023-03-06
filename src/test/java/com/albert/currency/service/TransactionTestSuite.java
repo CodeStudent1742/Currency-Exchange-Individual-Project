@@ -88,10 +88,15 @@ public class TransactionTestSuite {
         userService.saveUser(user1);
         Transaction transaction1 = new Transaction(ExchangeOperation.PLN_TO_CHF,400.0,cart1,cantor);
         transactionService.saveTransaction(transaction1);
+        Long id1 = transaction1.getTransactionId();
         Transaction transaction2 = new Transaction(ExchangeOperation.USD_TO_PLN,400.0,cart1,cantor);
         transactionService.saveTransaction(transaction2);
+        Long id2 = transaction2.getTransactionId();
         Transaction transaction3 = new Transaction(ExchangeOperation.EUR_TO_PLN,400.0,cart1,cantor);
         transactionService.saveTransaction(transaction3);
+        Long id3 = transaction3.getTransactionId();
+        List<Long> ids = List.of(id1,id2,id3);
+
 
         //WHEN
         List<Transaction> transactions = transactionService.getAllTransactions();
@@ -105,6 +110,25 @@ public class TransactionTestSuite {
         cartRepository.delete(cart1);
         accountRepository.delete(account1);
         userRepository.delete(user1);
+    }
+    @Test
+    public void deleteTransactionsByIds(){
+        //GIVEN
+        Transaction transaction1 = new Transaction();
+        transactionService.saveTransaction(transaction1);
+        Long id1 = transaction1.getTransactionId();
+        Transaction transaction2 = new Transaction();
+        transactionService.saveTransaction(transaction2);
+        Long id2 = transaction2.getTransactionId();
+        Transaction transaction3 = new Transaction();
+        transactionService.saveTransaction(transaction3);
+        Long id3 = transaction3.getTransactionId();
+        List<Long> ids = List.of(id1,id2,id3);
+        //WHEN
+        assertEquals(3,transactionRepository.findAll().size());
+        transactionService.deleteTransactions(ids);
+        assertEquals(0, transactionRepository.findAll().size());
+
     }
 
 }
